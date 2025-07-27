@@ -42,6 +42,7 @@ import { TopNavBarComponent } from './top-nav-bar/top-nav-bar.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatListModule} from '@angular/material/list';
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
+import { EventListComponent } from './event-list/event-list.component';
 registerLocaleData(locales, 'es-MX')
 
 @NgModule({
@@ -51,7 +52,8 @@ registerLocaleData(locales, 'es-MX')
     VerImagenComponent,
     TopNavBarComponent,
     InicioComponent,
-    PersonalInformationComponent
+    PersonalInformationComponent,
+    EventListComponent
   ],
   imports: [
       AngularFireModule.initializeApp(environment.firebase),
