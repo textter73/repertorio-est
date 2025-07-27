@@ -15,19 +15,6 @@ export const environment = {
   }
 };
 
-/**
- firebase: {
-    apiKey: "AIzaSyBAWMNvLLheX1f-SWqW8Qt4BsotZXQh-kY",
-    authDomain: "sistema-lapape.firebaseapp.com",
-    databaseURL: "https://sistema-lapape-default-rtdb.firebaseio.com",
-    projectId: "sistema-lapape",
-    storageBucket: "sistema-lapape.appspot.com",
-    messagingSenderId: "577302842434",
-    appId: "1:577302842434:web:c94991088e917e5abc71db",
-    measurementId: "G-JY3S2MZ0X3"
-  }
- */
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

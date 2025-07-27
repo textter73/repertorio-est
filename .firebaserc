@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "sistema-lapape"
-  }
+    "default": "repertorio-est",
+    "repetorio-est": "control-estonantzin"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

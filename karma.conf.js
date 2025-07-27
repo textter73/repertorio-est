@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/sistema-lapape'),
+      dir: require('path').join(__dirname, './coverage/repertorio-est'),
       subdir: '.',
       reporters: [
         { type: 'html' },

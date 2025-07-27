@@ -65,45 +65,32 @@ export class LoginComponent implements OnInit {
     Swal.showLoading();
     let usuario = this.itemForm.controls['usuario'].value;
     let password = this.itemForm.controls['password'].value;
-
-    (await this._loginServices.login(usuario, password)).subscribe((listUsers: any) =>{ 
-      this.usersFind = [];
-      listUsers.forEach((users: any) =>{
-        this.usersFind.push(users.payload.doc.data());
-      });
-      console.log('xxxxxxxxxxxxx');
-      console.log('xxxxxxxxxxxxx');
-      console.log(this.usersFind);
-      console.log('xxxxxxxxxxxxx');
-      console.log('xxxxxxxxxxxxx');
+    /*
+    let data = this.usersFind.find((x: any) => x.usuario === usuario);
+    
+    if (data && data.password === password && data.activo) {
+      localStorage.setItem('id', data.id);
+      localStorage.setItem('nivel', data.nivel);
+      localStorage.setItem('nombre', data.nombre);
+      localStorage.setItem('apllPtrn', data.apellidoPaterno);
+      localStorage.setItem('apllMtrn', data.apellidoMaterno);
+      localStorage.setItem('perfil', data.perfil);
+      localStorage.setItem('usuario', data.usuario);
+      localStorage.setItem('imagenPerfil', data.imagenPerfil);
+      localStorage.setItem('nombrePerfil', data.nombrePerfil);
+      Swal.close();
       
-      let data = this.usersFind.find((x: any) => x.usuario === usuario);
+      this.router.navigateByUrl('terminal-punto-venta');
       
-      if (data && data.password === password && data.activo) {
-        console.log(data);
-        localStorage.setItem('id', data.id);
-        localStorage.setItem('nivel', data.nivel);
-        localStorage.setItem('nombre', data.nombre);
-        localStorage.setItem('apllPtrn', data.apellidoPaterno);
-        localStorage.setItem('apllMtrn', data.apellidoMaterno);
-        localStorage.setItem('perfil', data.perfil);
-        localStorage.setItem('usuario', data.usuario);
-        localStorage.setItem('imagenPerfil', data.imagenPerfil);
-        localStorage.setItem('nombrePerfil', data.nombrePerfil);
-        Swal.close();
-        
-        this.router.navigateByUrl('terminal-punto-venta');
-        
-      } else {
-        Swal.close();
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Usuario o contraseña incorrecta'
-        })
-      }
-
-    });
+    } else {
+      Swal.close();
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Usuario o contraseña incorrecta'
+      })
+    }
+    */
   }
 
 }

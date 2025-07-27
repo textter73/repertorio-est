@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/sistema-lapape",
+    "public": "dist/repertorio-est",
     "ignore": [
       "firebase.json",
       "**/.*",
