@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import 'animate.css';
-import { LoginServices } from '../services/login.services';
 
 @Component({
     selector: 'app-terminal-punto-venta',

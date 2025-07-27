@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { map, Observable, share, Subscription, timer } from 'rxjs';
 import Swal from 'sweetalert2';
 import * as moment from 'moment/moment';
-import { LoginServices } from '../services/login.services';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +27,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private _loginServices: LoginServices,
     private router: Router
   ) { }
 
