@@ -43,6 +43,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatListModule} from '@angular/material/list';
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
 import { EventListComponent } from './event-list/event-list.component';
+import { ShowListComponent } from './modals/show-list/show-list.component';
 registerLocaleData(locales, 'es-MX')
 
 @NgModule({
@@ -50,6 +51,7 @@ registerLocaleData(locales, 'es-MX')
     AppComponent,
     LoginComponent,
     VerImagenComponent,
+    ShowListComponent,
     TopNavBarComponent,
     InicioComponent,
     PersonalInformationComponent,
@@ -106,6 +108,7 @@ registerLocaleData(locales, 'es-MX')
       {provide: LOCALE_ID, useValue: 'es-MX'},
       DatePipe,
       VerImagenComponent,
+      ShowListComponent
   ],
   entryComponents: [
       

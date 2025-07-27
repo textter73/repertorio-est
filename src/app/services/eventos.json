@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "active": true,
+    "type": "CONTRATO",
+    "dayWeek": "sábado",
+    "day": 9,
+    "month": "Agosto",
+    "place": "Calimaya Centro",
+    "schedule": "19:00hrs. a 21:00hrs. (3 horas)",
+    "meetingtime": "18:00hrs",
+    "transportationStatus": "Gratuito",
+    "modificationLimit": "miercoles 6 de Agosto",
+    "confirmAttendance": [
+        {
+            "imgProfile": "aortiz.jpg",
+            "fullName": "Juan Angel Ortiz Contreras",
+            "profile": "Tuno",
+            "dateConfirm": "27/07/2025"
+        }
+    ]
+  },
+  {
+    "id": 2,
+    "active": true,
+    "type": "CALLEJONEADA",
+    "dayWeek": "sábado",
+    "day": 16,
+    "month": "Agosto",
+    "place": "Metepec",
+    "schedule": "19:00hrs. a 23:30hrs.",
+    "meetingtime": "18:00hrs",
+    "transportationStatus": "Por confirmar",
+    "modificationLimit": "miercoles 13 de Agosto"
+  }
+]

@@ -1,0 +1,39 @@
+<h3 mat-dialog-title style="text-align: center; background: #5ce1e6;"><b>{{data.type | uppercase}} - {{ data.place |
+        uppercase}}</b></h3>
+<div mat-dialog-content>
+    <mat-list>
+        <div mat-subheader style="color: green;">Asistirán</div>
+        <mat-list-item *ngFor="let confirm of confirmAttendance">
+            <mat-icon mat-list-icon style="margin-bottom: 16px !important;">
+                <img src="../../../../../assets/img/{{ confirm.imgProfile }}" width="40px" height="40px" class="img-profile">
+            </mat-icon>
+            <div mat-line style="font-size: 12px;"><b>{{confirm.fullName}}</b></div>
+            <div mat-line style="font-size: 12px;"> {{confirm.profile}} </div>
+            <div mat-line style="font-size: 12px;">{{confirm.dateConfirm}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div mat-subheader *ngIf="lackList && lackList.length">No asistirán</div>
+        <mat-list-item *ngFor="let lack of lackList">
+            <mat-icon mat-list-icon style="margin-bottom: 16px !important;">
+                <img src="../../../../../assets/img/{{ lack.imgProfile }}" width="40px" height="40px" class="img-profile">
+            </mat-icon>
+            <div mat-line style="font-size: 12px;"><b>{{lack.fullName}}</b></div>
+            <div mat-line style="font-size: 12px;"> {{lack.profile}} </div>
+            <div mat-line style="font-size: 12px;">{{lack.dateConfirm}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div mat-subheader *ngIf="lackList && pendingConfirm.length">Pendientes</div>
+        <mat-list-item *ngFor="let pending of pendingConfirm">
+            <mat-icon mat-list-icon style="margin-bottom: 16px !important;">
+                <img src="../../../../../assets/img/{{ pending.imgProfile }}" width="40px" height="40px" class="img-profile">
+            </mat-icon>
+            <div mat-line style="font-size: 12px;"><b>{{pending.fullName}}</b></div>
+            <div mat-line style="font-size: 12px;"> {{pending.profile}} </div>
+            <div mat-line style="font-size: 12px;">{{pending.dateConfirm}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data.type" cdkFocusInitial>Cerrar</button>
+</div>

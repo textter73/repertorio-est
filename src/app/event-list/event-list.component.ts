@@ -1,5 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
+import eventList from '../services/eventos.json'
+import { ShowListComponent } from '../modals/show-list/show-list.component';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
     selector: 'event-list',
     templateUrl: './event-list.component.html',
@@ -11,8 +15,10 @@ export class EventListComponent implements OnInit {
         fullName: ''
     };
 
+    eventList: any = [];
     constructor(
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        public dialog: MatDialog
     ) { }
 
     async ngOnInit(): Promise<void> {
@@ -27,7 +33,19 @@ export class EventListComponent implements OnInit {
             imgProfile: `${localStorage.getItem("imgProfile")}`,
             id: `${localStorage.getItem("id")}`
         } 
-        console.log(this.personalInformation);
+        
+
+        this.eventList = eventList;
+
         this.cdr.detectChanges();
+    }
+
+    showList(item: any): any {
+        this.dialog.open(ShowListComponent, {
+            panelClass: 'full-width-dialog',
+            width: '100%',
+            data: item
+        });
+
     }
 }
