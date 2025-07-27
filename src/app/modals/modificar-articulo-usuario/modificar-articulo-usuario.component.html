@@ -1,0 +1,99 @@
+<h2 mat-dialog-title>Modificar Artículo</h2>
+<mat-dialog-content class="mat-typography">
+  <div fxLayout="row">
+    <div fxFlex="100">
+      <mat-form-field class="search-input full-width" appearance="outline">
+        <mat-label>Buscar artículo</mat-label>
+        <input type="text"
+            placeholder="Buscar artículo"
+            aria-label="Number"
+            matInput
+            [formControl]="myControl"
+            [matAutocomplete]="auto">
+        <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="productSelected($event)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option" style="height: auto;" fxFlexAlign="center center">
+                
+                <div fxLayout="row" fxFlexAlign="center center" class="full-width">
+                    <div fxFlex="90" fxFlexAlign="center center" class="full-width">
+                        <span class="item-name-text-principal cp">{{option['itemName'].toUpperCase()}}</span>
+                    </div>
+                    <div fxFlex="10" fxFlexAlign="end end" class="full-width">
+                        <span class="item-name-text-principal cp"> {{ option['saleAmount'] | currency: 'MXN' }}</span>
+                    </div>
+                </div>
+              
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row" class="tac">
+    <div fxFlex="50" class="tac">
+      <img [src]="image" style="width: 200px; heigth: 200px;">
+    </div>
+    <div fxFlex="50" class="tac">
+        
+        <div fxLayout="row" class="tac">
+          <div fxFlex="100">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Nombre artículo</mat-label>
+              <input matInput [(ngModel)]="itemName">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row" class="tac">
+          <div fxFlex="50">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Categoría</mat-label>
+              <input matInput [(ngModel)]="category">
+            </mat-form-field>
+          </div>
+          <div fxFlex="50">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Marca</mat-label>
+              <input matInput [(ngModel)]="branch">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row" class="tac">
+          <div fxFlex="33">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Costo</mat-label>
+              <input matInput [(ngModel)]="amount">
+            </mat-form-field>
+          </div>
+          <div fxFlex="33">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Precio público</mat-label>
+              <input matInput [(ngModel)]="salesAmount">
+            </mat-form-field>
+          </div>
+          <div fxFlex="33">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Stock</mat-label>
+              <input matInput [(ngModel)]="stock">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row" class="tac">
+          <div fxFlex="100">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Imagen</mat-label>
+              <input matInput [(ngModel)]="image">
+            </mat-form-field>
+          </div>
+        </div>
+
+    </div>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Salir</button>
+  <button mat-button [mat-dialog-close]="true" (click)="validarDatos()">Guardar</button>
+</mat-dialog-actions>

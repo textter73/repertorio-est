@@ -1,0 +1,52 @@
+<div id="login" class="background-fondo height-100">
+
+    <p>
+        <mat-toolbar class="background-principal">
+          <span>ESTonantzin</span>
+        </mat-toolbar>
+    </p>
+    
+    <div style="height: 15%" fxHide.lt-sm="true"></div>
+
+    <div fxLayout="row grap" fxLayout.lt-sm="column" fxLayoutAlign="center center">
+
+        <div fxFlex="calc(40%)" fxFlex.lt-md="calc(%95)" fxFlex.lt-sm="100" fxLayoutAlign="end center">
+            <div fxLayout="row grap" fxLayout.lt-sm="column" fxLayoutAlign="center center">
+                <div fxFlex="100" fxFlex.lt-md="100" fxFlex.lt-sm="100" fxLayoutAlign="end center">
+                    <img src="../../../../../assets/img/logo.jpg" class="logo mb-12">
+                </div>
+                <div fxFlex="100" fxFlex.lt-md="100" fxFlex.lt-sm="100" fxLayoutAlign="end center">
+                    <span class="h40 color-b font-bold-600 p-12">{{ rxTime }}</span>
+                </div>
+            </div>
+            
+        </div>
+
+        <div fxFlex="calc(60%)" fxFlex.lt-md="calc(%5)" fxFlex.lt-sm="100" fxLayoutAlign="start center">
+            <mat-card class="m-12">
+                <mat-card-title>Inicio de sesión</mat-card-title>
+                <form class="form" [formGroup]="itemForm" (ngSubmit)="validarUsuario()">               
+                    <mat-card-content>
+                        <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput placeholder="Usuario" formControlName="usuario">
+                        </mat-form-field>
+                    
+                        <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput placeholder="Contraseña" type="password" formControlName="password">
+                        </mat-form-field>
+
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-button type="submit" [disabled]="itemForm.invalid">ENTRAR</button>
+                    </mat-card-actions>                   
+                </form>
+            </mat-card>
+        </div>
+
+    </div>
+
+    <div style="height: 15%"></div>
+
+</div>

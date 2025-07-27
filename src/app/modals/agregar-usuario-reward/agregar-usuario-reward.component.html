@@ -1,0 +1,323 @@
+<div id="registrarArticulo">
+    <h2 mat-dialog-title class="title-background p-8"><mat-icon>person</mat-icon>Registar Usuario</h2>
+    <mat-dialog-content class="mat-typography">
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">contacts</mat-icon>
+             Agregar impresiones
+          </ng-template>
+          <mat-card class="m-16">
+            <form [formGroup]="registrarImpresionesForm" class="mt-8">
+              <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="center center"
+                class="full-width">
+                <div fxFlex="70" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                  <div class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Teléfono</mat-label>
+                      <input matInput placeholder="Teléfono" formControlName="telefono" (keyup)="onTelefonoPaginas($event)">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxFlex="25" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                  <div class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Páginas</mat-label>
+                      <input matInput type="number" placeholder="cantidad" formControlName="cantidad">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+  
+              <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="end end" class="p-16">
+                <div fxFlex="30" fxflex.md="100" fxLayout="column" fxLayoutAlign="end end" class="full-width">
+                  <button mat-raised-button color="accent" (click)="validarPaginas()" [disabled]="!existePaginas">Guardar</button>
+                </div>
+              </div>
+            </form>
+          </mat-card>
+
+          <mat-card *ngIf="userSelected && userSelected.nombre" class="m-16">
+            <section class="m-16">
+              <h2>
+                {{ userSelected.nombre | uppercase }} {{ userSelected.apllPtrn | uppercase }} {{ userSelected.apllMtrn | uppercase }}
+              </h2>
+              <h1>
+                {{ userSelected.totalAmount | currency: 'MXN' }}
+              </h1>
+            </section>
+            <section>
+              <div fxLayout="row" fxLayout.lt-sm="row" fxLayoutAlign="start start" class="m-12">
+                <div fxFlex="calc(100%)" fxFlex.lt-md="calc(%100)" fxFlex.lt-sm="100" fxLayoutAlign="start center">
+                    <div class="h24 font-bold-500">
+                        Movimientos
+                    </div>
+                </div>
+              </div>
+
+              <div *ngFor="let item of userSelected.historial">
+                <mat-list-item *ngIf="item.type === 1">
+                    <div fxLayout="row" fxLayoutAlign="center center" class="m-12">
+                      <div fxLayoutAlign="center center" fxFlex="5">
+                        <mat-icon mat-list-icon class="star-icon">stars</mat-icon>
+                      </div>
+
+                      <div fxLayoutAlign="start start" fxFlex="95">
+                        <div fxLayout="column" fxLayoutAlign="start start" class="m-12">
+                          <div fxLayoutAlign="start start" fxFlex="100">
+                            <p class="no-mp ">#{{ item.id }}</p>
+                          </div>
+                          <div fxLayoutAlign="center center" fxFlex="100">
+                            <h4 class="no-mp"><b>Bonificación - {{ item.name }}</b></h4>
+                          </div>
+                          <div fxLayoutAlign="center center" fxFlex="100">
+                            <p class="no-mp">{{ item.quantity }} {{ item.name }} <b class="star-icon">(+ {{ item.amount | currency: 'MXN' }})</b></p>
+                          </div>
+                          <!--<div fxLayoutAlign="center center" fxFlex="100">
+                            <p class="no-mp"><i>{{ item.dateSales.toDate() | date: 'short' }}</i></p>
+                          </div>-->
+                          <div fxLayoutAlign="center center" fxFlex="100">
+                            <p class="no-mp"><i>Vendedor: {{ item.usuarioCrea }}</i></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                </mat-list-item>
+
+                <mat-list-item *ngIf="item.type === 2">
+                  <div fxLayout="row" fxLayoutAlign="center center" class="m-12">
+                    <div fxLayoutAlign="center center" fxFlex="5">
+                      <mat-icon mat-list-icon class="remove-icon">remove_circle</mat-icon>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="95">
+                      <div fxLayout="column" fxLayoutAlign="start start" class="m-12">
+                        <div fxLayoutAlign="start start" fxFlex="100">
+                          <p class="no-mp ">#{{ item.id }}</p>
+                        </div>
+                        <div fxLayoutAlign="center center" fxFlex="100">
+                          <h4 class="no-mp"><b>Compra - {{ item.name }}</b></h4>
+                        </div>
+                        <div fxLayoutAlign="center center" fxFlex="100">
+                          <p class="no-mp">Descuento de  <b class="remove-icon">-{{ item.amount | currency: 'MXN' }}</b></p>
+                        </div>
+                        <!--<div fxLayoutAlign="center center" fxFlex="100">
+                            <p class="no-mp"><i>{{ item.dateSales.toDate() | date: 'short' }}</i></p>
+                          </div>-->
+                        <div fxLayoutAlign="center center" fxFlex="100">
+                          <p class="no-mp"><i>Vendedor: {{ item.usuarioCrea }}</i></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-list-item>
+
+                <mat-divider></mat-divider>
+            </div>
+            </section>
+          </mat-card>
+          
+          
+        </mat-tab>
+        
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">contacts</mat-icon>
+             Descuento
+          </ng-template>
+          <mat-card class="m-16">
+            <form [formGroup]="descuentoImpresionesForm" class="mt-8">
+              <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="center center"
+                class="full-width">
+                <div fxFlex="70" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                  <div class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Teléfono</mat-label>
+                      <input matInput placeholder="Teléfono" formControlName="telefono" (keyup)="onTelefonoDescuento($event)">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxFlex="25" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                  <div class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Dinero a descontar</mat-label>
+                      <input matInput type="number" placeholder="Dinero a descontar" formControlName="cantidad">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+  
+              <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="end end" class="p-16">
+                <div fxFlex="30" fxflex.md="100" fxLayout="column" fxLayoutAlign="end end" class="full-width">
+                  <button mat-raised-button color="accent" (click)="validarDescuento()" [disabled]="!existeDescuento">Guardar</button>
+                </div>
+              </div>
+            </form>
+          </mat-card>
+
+          <mat-card *ngIf="userSelected && userSelected.nombre" class="m-16">
+            <section class="m-16">
+              <h2>
+                {{ userSelected.nombre | uppercase }} {{ userSelected.apllPtrn | uppercase }} {{ userSelected.apllMtrn | uppercase }}
+              </h2>
+              <h1>
+                {{ userSelected.totalAmount | currency: 'MXN' }}
+              </h1>
+            </section>
+            <section>
+              <div fxLayout="row" fxLayout.lt-sm="row" fxLayoutAlign="start start" class="m-12">
+                <div fxFlex="calc(100%)" fxFlex.lt-md="calc(%100)" fxFlex.lt-sm="100" fxLayoutAlign="start center">
+                    <div class="h24 font-bold-500">
+                        Movimientos
+                    </div>
+                </div>
+              </div>
+
+              <div *ngFor="let item of userSelected.historial">
+                <mat-list-item *ngIf="+item.type === 1">
+                    <div fxLayout="row" fxLayoutAlign="center center" class="m-12">
+                      <div fxLayoutAlign="center center" fxFlex="5">
+                        <mat-icon mat-list-icon class="star-icon">stars</mat-icon>
+                      </div>
+
+                      <div fxLayoutAlign="start start" fxFlex="95">
+                        <div fxLayout="column" fxLayoutAlign="start start" class="m-12">
+                          <div fxLayoutAlign="start start" fxFlex="100">
+                            <p class="no-mp ">#{{ item.id }}</p>
+                          </div>
+                          <div fxLayoutAlign="center center" fxFlex="100">
+                            <h4 class="no-mp"><b>Bonificación - {{ item.name }}</b></h4>
+                          </div>
+                          <div fxLayoutAlign="center center" fxFlex="100">
+                            <p class="no-mp">{{ item.quantity }} {{ item.name }} <b class="star-icon">(+ {{ item.amount | currency: 'MXN' }})</b></p>
+                          </div>
+                          <!--<div fxLayoutAlign="center center" fxFlex="100">
+                            <p class="no-mp"><i>{{ item.dateSales.toDate() | date: 'short' }}</i></p>
+                          </div>-->
+                          <div fxLayoutAlign="center center" fxFlex="100">
+                            <p class="no-mp"><i>Vendedor: {{ item.usuarioCrea }}</i></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                </mat-list-item>
+
+                <mat-list-item *ngIf="item.type === 2">
+                  <div fxLayout="row" fxLayoutAlign="center center" class="m-12">
+                    <div fxLayoutAlign="center center" fxFlex="5">
+                      <mat-icon mat-list-icon class="remove-icon">remove_circle</mat-icon>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="95">
+                      <div fxLayout="column" fxLayoutAlign="start start" class="m-12">
+                        <div fxLayoutAlign="start start" fxFlex="100">
+                          <p class="no-mp ">#{{ item.id }}</p>
+                        </div>
+                        <div fxLayoutAlign="center center" fxFlex="100">
+                          <h4 class="no-mp"><b>Compra - {{ item.name }}</b></h4>
+                        </div>
+                        <div fxLayoutAlign="center center" fxFlex="100">
+                          <p class="no-mp">Descuento de  <b class="remove-icon">-{{ item.amount | currency: 'MXN' }}</b></p>
+                        </div>
+                        <!--<div fxLayoutAlign="center center" fxFlex="100">
+                            <p class="no-mp"><i>{{ item.dateSales.toDate() | date: 'short' }}</i></p>
+                          </div>-->
+                        <div fxLayoutAlign="center center" fxFlex="100">
+                          <p class="no-mp"><i>Vendedor: {{ item.usuarioCrea }}</i></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+            </div>
+            </section>
+          </mat-card>
+          
+          
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">supervised_user_circle</mat-icon>
+             Agregar usuario
+          </ng-template>
+          <form [formGroup]="checkoutForm" class="mt-8">
+
+            <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="center center"
+              class="full-width">
+              <div fxFlex="45" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <div class="full-width">
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Teléfono</mat-label>
+                    <input matInput placeholder="Teléfono" formControlName="telefono" (keyup)="onTelefono($event)">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxFlex="45" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <div class="full-width">
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput type="text" placeholder="Contraseña" formControlName="password">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+      
+            <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="center center"
+              class="full-width">
+              <div fxFlex="30" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <div class="full-width">
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="Nombre" formControlName="nombre">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxFlex="30" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <div class="full-width">
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Apellido Paterno</mat-label>
+                    <input matInput placeholder="Apellido Paterno" formControlName="apellidoPaterno">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxFlex="30" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <div class="full-width">
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Apellido Materno</mat-label>
+                    <input matInput placeholder="Apellido Materno" formControlName="apellidoMaterno">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="end end" class="p-16">
+              <div fxFlex="30" fxflex.md="100" fxLayout="column" fxLayoutAlign="end end" class="full-width">
+                <button mat-raised-button color="accent" (click)="validarDatos()" [disabled]="existe">Guardar</button>
+              </div>
+            </div>
+
+            
+          </form>
+        </mat-tab>
+      
+      </mat-tab-group>
+      
+    </mat-dialog-content>
+    <mat-dialog-actions align="end" class="p-16" style="display: block; text-align: end; align-items: end; align-content: end;">
+      <p>
+        <button mat-raised-button color="primary" mat-dialog-close>Cancel</button>
+      </p>
+    </mat-dialog-actions>
+    
+  </div>

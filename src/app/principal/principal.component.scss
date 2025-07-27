@@ -1,0 +1,20 @@
+#principal {
+    .title-car-amount {
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    .amount {
+        font-size: 80px;
+        text-align: center;
+    }
+
+    .example-button-row button,
+    .example-button-row a {
+        margin-right: 8px;
+    }
+
+    .example-disabled {
+    display: inline-block;
+    }
+}

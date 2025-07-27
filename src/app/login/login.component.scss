@@ -1,0 +1,15 @@
+:root {
+    height: 100%;
+}
+#login {
+    .padding-height-210 {
+        min-height: 210px !important;
+    }
+
+    .logo {
+        width: 230px;
+        height: 230px;
+        border-radius: 50%;
+        border: 4px solid black;
+    }
+}

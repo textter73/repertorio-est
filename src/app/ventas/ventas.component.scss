@@ -1,0 +1,92 @@
+#ventas {
+    .table-content {
+        .mat-cell {
+          min-width: 0;
+          font-size: 11px;
+          max-height: 100px;
+          > p {
+            font-size: 11px;
+            margin-bottom: 0px !important;
+            align-content: center;
+            vertical-align: middle;
+            max-height: 100px;
+          }
+        }
+      }
+    
+      td {
+        font-size: 16px;
+        margin-bottom: 0px !important;
+        align-content: center !important;
+        vertical-align: middle !important;
+        max-height: 120px;
+      }
+
+      .mat-header-row--sticky {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+    .center-header {
+        color: green !important;
+        font-weight: bold !important;
+        font-size: 11px;
+        text-align: center !important;
+        align-items: center;
+        justify-content: center;
+    }
+    
+      th {
+        text-align: center;
+        font-size: 12px;
+        height: 1px !important;
+        padding: 6px;
+        white-space: nowrap;
+      }
+    
+    .item-name-text {
+        color: darkgreen; 
+        font-weight: bolder;
+    }
+
+    .item-name-text-principal {
+      color: darkgreen; 
+      font-weight: bolder;
+      font-size: 19px;
+    }
+
+    .sin-existencia {
+      color: red;
+    }
+
+    .poca-existencia {
+      color: rgb(255, 172, 17);
+    }
+
+    .search-input {
+      min-width: 500px;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .title-car-amount {
+      font-size: 18px;
+      font-weight: 800;
+  }
+
+  .amount {
+      font-size: 80px;
+      text-align: center;
+  }
+
+  .example-button-row button,
+  .example-button-row a {
+      margin-right: 8px;
+  }
+
+  .example-disabled {
+    display: inline-block;
+  }
+    
+}

@@ -1,0 +1,11 @@
+<mat-toolbar color="accent" class="h-6-vh" *ngIf="perfil && perfil === 98">
+    <div>
+        <img src="../../../../../assets/img/{{imgProfile}}" class="logo-35" (click)="exit()">
+    </div>
+    <span class="sub-title">{{usernName.toUpperCase()}} - {{nameProfile.toUpperCase()}}</span>
+    <span class="example-spacer"></span>
+    <span class="h30 color-b font-bold-600 p-12">{{ rxTime }}</span>
+    <div>
+        <img src="../../../../../assets/img/logo.jpg" class="logo-35" (click)="exit()">
+    </div>
+</mat-toolbar>

@@ -1,0 +1,126 @@
+<div class="example-sidenav-content">
+
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="center center">
+        <div fxFlex="100" style="width: 100%;">
+            <mat-toolbar class="h-6-vh background-principal">
+                <span>ESTonantzin</span>
+                <span class="example-spacer"></span>
+                <div>
+                    <img src="../../../../../assets/img/logo.jpg" class="logo-35 cp" (click)="exit()">
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+    <div>
+        <mat-tab-group>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">person</mat-icon>
+                    Mi perfil
+                </ng-template>
+
+                <mat-card appearance="outlined" style="margin: 8px;">
+                    <mat-card-header>
+                        <mat-card-title> {{ usernName }} </mat-card-title>
+                        <mat-card-subtitle>{{ nameProfile | uppercase }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div fxLayout="row" fxLayout.lt-sm="row" fxLayoutAlign="center center">
+                            <div fxFlex="calc(40%)" fxFlex.lt-md="calc(30%)" fxFlex.lt-sm="40"
+                                fxLayoutAlign="start center">
+                                <img src="../../../../../assets/img/{{imgProfile}}" width="100px" height="100px"
+                                    class="img-profile">
+                            </div>
+
+                            <div fxFlex="calc(60%)" fxFlex.lt-md="calc(70%)" fxFlex.lt-sm="60"
+                                fxLayoutAlign="start center">
+                                <p>En construcción</p>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">receipt</mat-icon>
+                    Evaluaciones
+                </ng-template>
+                <div>
+                    <mat-card appearance="outlined" style="margin: 8px;" *ngFor="let item of evaluationList">
+                        <mat-card-header>
+                            <mat-card-title> {{ item['fecha'] }} </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <mat-accordion>
+                                <mat-expansion-panel hideToggle>
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title> HABILIDADES EN CANTO {{ (+item['afinacionP']) + (+item['rangoVocalP']) + (+item['expresividadP']) }} PTS. </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <h4>Afinación: {{ item['afinacion'] | uppercase }}</h4>
+                                    <h4>Rango vocal: {{ item['rangoVocal'] | uppercase }}</h4>
+                                    <h4>Control vocal: {{ item['controlVocal'] | uppercase }}</h4>
+                                    <h4>Expresividad: {{ item['expresividad'] | uppercase }}</h4>
+
+                                    <p><b>Observaciones:</b> Buena afinación con buen volumen pero a la hora de contar en grupo desaparece el sonido</p>
+                                  </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel hideToggle>
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title> HABILIDADES EN INSTRUMENTO {{ (+item['tecnicaP']) + (+item['precisionP']) + (+item['creatividadP']) + (+item['versatilidadP']) }} PTS.</mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <h4>Técnica: {{ item['tecnica'] | uppercase }}</h4>
+                                    <h4>Precisión: {{ item['precision'] | uppercase }}</h4>
+                                    <h4>Creatividad: {{ item['creatividad'] | uppercase }}</h4>
+                                    <h4>Versatilidad: {{ item['versatilidad'] | uppercase }}</h4>
+                                    <p><b>Observaciones:</b> El bajeo no es el correcto siempre se toca en la misma cuerda</p>
+                                  </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel hideToggle>
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title> EVALUACION DEL COMPROMISO {{ (+item['asistenciaEnsayosP']) + (+item['participacionEventosP']) + (+item['colaboracionP']) }} PTS.</mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <h4>Asistencia a ensayos: {{ item['asistenciaEnsayos'] | uppercase }}</h4>
+                                    <h4>Participación en eventos: {{ item['participacionEventos'] | uppercase }}</h4>
+                                    <h4>Colaboración: {{ item['colaboracion'] | uppercase }}</h4>
+                                    <p><b>Observaciones:</b> Se asiste pero solo nos dedicamos a cantar y no se apoya en la logistica o en la guia en la callejoneada.</p>
+                                  </mat-expansion-panel>
+                            </mat-accordion>
+                            <br>
+                            <h3><b>
+                                Total: {{ (+item['afinacionP']) + (+item['rangoVocalP']) + (+item['expresividadP']) + (+item['tecnicaP']) + (+item['precisionP']) + (+item['creatividadP']) + (+item['versatilidadP']) + (+item['asistenciaEnsayosP']) + (+item['participacionEventosP']) + (+item['colaboracionP']) }}
+                                Nivel: {{ item['nivel'] }}
+                            </b></h3>
+                            <p>
+                                <b>Observaciones:</b>
+                                En general todo bien pero se te invita a practicar en casa por los menos 1 hora diaria.
+                            </p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </mat-tab>
+            
+            <mat-tab *ngIf="+perfil > 98">
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">receipt</mat-icon>
+                    Cargar evaluación
+                </ng-template>
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">library_music</mat-icon>
+                    Letras
+                </ng-template>
+
+                En construcción
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</div>

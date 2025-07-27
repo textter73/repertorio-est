@@ -1,0 +1,356 @@
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav-drawer" mode="over">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxFlex="80" fxLayoutAlign="center center" class="background-menu p-20 hp-40">
+                Menú
+            </div>
+            <div fxFlex="20" fxLayoutAlign="end center" class="background-menu p-20 hp-40">
+                <mat-icon (click)="drawer.toggle()" class="cp">keyboard_backspace</mat-icon>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" class="mt-16">
+            <div fxFlex="100" fxLayoutAlign="center center">
+                <img src="../../../../../assets/img/{{imgProfile}}" width="100px" height="100px" class="img-profile">
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxFlex="100" fxLayoutAlign="center center">
+                <div class="title">{{usernName}}</div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxFlex="100" fxLayoutAlign="center center">
+                <div class="sub-title">{{nameProfile}}</div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="mt-28">
+            <div fxFlex="100" fxLayoutAlign="start center" class="cp">
+                <a href="/inicio">
+                    <mat-icon class="icon-menu mr-8">keyboard_backspace</mat-icon>                        
+                </a>
+                <span>
+                    <div class="sub-title">Registrar venta</div>
+                </span>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="mt-28">
+            <div fxFlex="100" fxLayoutAlign="start center" class="cp">
+                <a href="/administrador-articulos">
+                    <mat-icon class="icon-menu mr-8">local_play</mat-icon>                        
+                </a>
+                <span>
+                    <div class="sub-title">Administrador de artículos</div>
+                </span>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="mt-28">
+            <div fxFlex="100" fxLayoutAlign="start center" class="cp">
+                <a href="/siguiente-compra">
+                    <mat-icon class="icon-menu mr-8">local_play</mat-icon>                        
+                </a>
+                <span>
+                    <div class="sub-title">Articulos a comprar</div>
+                </span>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="mt-28">
+            <div fxFlex="100" fxLayoutAlign="start center" class="cp">
+                <a href="/siguiente-compra">
+                    <mat-icon class="icon-menu mr-8">local_play</mat-icon>                        
+                </a>
+                <span>
+                    <div class="sub-title">Articulos por agotarse</div>
+                </span>
+            </div>
+        </div>
+    </mat-drawer>
+
+    <div class="example-sidenav-content" id="principal">
+        <div fxLayout="row grap" fxLayout.lt-sm="column" fxLayoutAlign="center center">
+            <div fxFlex="100">
+                <p>
+                    <mat-toolbar color="accent">
+                        <button mat-icon-button class="example-icon background-principal cp" (click)="drawer.toggle()">
+                            <mat-icon>menu</mat-icon>
+                        </button>
+                        <span>La Pape</span>
+                        <span class="example-spacer"></span>
+                        <span class="h40 color-b font-bold-600 p-12">{{ rxTime }}</span>
+                        <div fxShow="true"> <!--fxHide.sm="true" fxHide.md="true"-->
+                            <img src="../../../../../assets/img/logo.jpg" class="logo" (click)="exit()">
+                        </div>
+                    </mat-toolbar>
+                </p>
+            </div>
+        </div>
+
+        <div  class="card-width" fxLayoutAlign="center center" *ngIf="existeCaja">
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center start" class="full-width">
+
+                <div fxFlex="75" fxflex.md="100" fxLayout="column" fxLayoutAlign="center start" class="card-amount full-width">
+                    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="">
+                        <mat-form-field class="example-form-field" style="width: 100%;">
+                            <input 
+                                matInput 
+                                type="text"
+                                autocomplete="off"
+                                (keyup)="filtrarProducto($event)">
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center" class="full-width">
+                        <table mat-table [dataSource]="dataSourceItems" class="table-striped">
+                            
+                            <ng-container matColumnDef="np" fxFlex="5">
+                                <th mat-header-cell *matHeaderCellDef class="center-header"> #</th>
+                                <td mat-cell *matCellDef="let e; let i = index" >{{i}}</td>
+                            </ng-container>
+
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsItems;" [ngClass]="{'grey-300-bg': row.background}" style="font-size: 11px; height: 1px;"></tr>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsItems; sticky: true" style="font-size: 11px"></tr>
+                        </table>
+                        
+                        <!--<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="">
+                            <mat-form-field class="example-form-field" style="width: 100%;">
+                                <mat-label>Buscar artículo</mat-label>
+                                <input 
+                                    matInput 
+                                    type="text"
+                                    [(ngModel)]="value"
+                                    autocomplete="off"
+                                    (keydown.control)="filtrarProducto($event)"
+                                    [matAutocomplete]="auto">
+                                <mat-autocomplete (optionSelected)="productoSelected($event)" autoActiveFirstOption #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of itemsListAux" [value]="option.id" style="font-size: 12px;">
+                                        <div fxLayout="row" fxLayoutAlign="center center" class="full-width">
+                                            <div fxFlex="55" fxLayoutAlign="start start" class="full-width">
+                                              <div>{{ option.nombre.toUpperCase() }}</div> 
+                                            </div>
+                                            <div fxFlex="15" fxLayoutAlign="start start" class="full-width">
+                                                <div class="h16 font-bold-600">{{ option.marca.toUpperCase() }}</div>
+                                            </div>
+                                            <div fxFlex="10" fxLayoutAlign="start start" class="full-width">
+                                                <div class="h16 font-bold-600">{{ option.costoPublico | currency: 'MXN'  }}</div>
+                                            </div>
+                                            <div fxFlex="10" fxfxFlexAlign="center center"LayoutAlign="center center" class="full-width" style="text-align: center;">
+                                                <img [src]="option.imagen" width="20" heigth="20">
+                                            </div>
+                                            <div fxFlex="10" fxLayoutAlign="start start" class="full-width">
+                                                <div class="h16 font-bold-600">{{ option.cantidad }}</div>
+                                            </div>
+                                        </div>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>-->     
+                    </div>
+                    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="full-width">
+                        <mat-paginator #scheduledOrdersPaginator [length]="this.dataSourceItems?.data" [pageSize]="5"
+                             [pageSizeOptions]="[20, 30, 60, 1000]"></mat-paginator>
+                    </div>
+
+                    <div fxLayout="column" fxFlex="100" class="full-width tac" >
+                        <div class="full-width tac no-mp">
+                            <br>
+                            <div class="amount p-24 no-mp">{{totalCarrito | currency: 'MXN'}}</div><br class="no-mp">
+                            <div class="title-car-amount no-mp">Total</div>
+                            <div class="example-button-row m-16">
+                                <button mat-raised-button color="primary" [disabled]="salesList.data.length === 0" (click)="procederPago()">
+                                    <mat-icon>monetization_on</mat-icon> Proceder al pago
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                        <div fxFlex="100" class="tac">
+                            <table mat-table [dataSource]="salesList" class="sales-list tac">
+                            
+                                <ng-container matColumnDef="number">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table">No.</th>
+                                    <td mat-cell *matCellDef="let element; let i = index">{{i + 1}}</td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="items" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Articulo/Servicio</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="remove" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac"></th>
+                                    <td mat-cell *matCellDef="let element; let i = index">
+                                        <mat-icon style="font-size: 18px; color: darkred; cursor: pointer"  (click)="removeItem(i)">remove_circle</mat-icon>
+                                    </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="quantity" fxFlexAlign="center center">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Cantidad</th>
+                                    <td mat-cell *matCellDef="let element" style="vertical-align: middle; text-align: center;">
+                                        <span style="margin-bottom: 16px; vertical-align: bottom; font-size: 18px;">{{element.cantidadSelecionada}}</span>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="add" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac"></th>
+                                    <td mat-cell *matCellDef="let element; let i = index">
+                                        <mat-icon style="font-size: 18px; color: #3f51b5; cursor: pointer; margin-right: 8px;" (click)="addItem(i)">add_circle</mat-icon>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="stock" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Stock</th>
+                                    <td mat-cell *matCellDef="let element; let i = index">
+                                        {{ element.cantidad }}
+                                    </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="amount">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Unitario</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.costoPublico | currency: 'MXN'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="subtotal">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Subtotal</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.subtotal | currency: 'MXN'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="accion">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table ta"> Eliminar </th>
+                                    <td mat-cell *matCellDef="let e; let i = index">
+                                      <span style="color: darkred; cursor: pointer" matTooltip="Eliminar"><mat-icon mat-list-icon (click)="eliminaArticulo(i)">delete</mat-icon></span>
+                                    </td>
+                                </ng-container>
+   
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsSales"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsSales;"></tr>
+                            </table>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+                <div fxFlex="25" fxflex.md="100" fxLayout="column" fxLayoutAlign="start start" class="card-amount full-width">
+                    <mat-accordion class="full-width">
+                        <mat-expansion-panel hideToggle>
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              HERRAMIENTAS
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              <b>EN CAJA</b>
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <div class="h30">{{dineroEnCaja | currency: 'MXN'}}</div>
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                <b>PAPELERÍA</b>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="h30">{{totalPapeleria | currency: 'MXN'}}</div>
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                <b>RECARGAS</b>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="h30">{{totalRecargas | currency: 'MXN'}}</div>
+                        </mat-expansion-panel>
+
+                      </mat-accordion>
+                </div>
+            </div>
+
+        </div>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="end end" class="full-width" *ngIf="existeCaja">
+            <div fxFlex="100" fxLayoutAlign="end end" class="full-width">
+                <div class="example-button-row m-8">
+                    <button mat-raised-button color="primary" (click)="abrirCaja(false)">
+                        <mat-icon>exit_to_app</mat-icon>Cerrar caja</button>
+                </div>
+            </div>
+        </div>
+
+        
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center start" class="full-width" *ngIf="existeCaja">
+            <div fxFlex="90" fxflex.md="100"  fxLayout="column" fxLayoutAlign="center start" class="card full-width">
+
+                <div fxLayout="row" fxLayoutAlign="center center" class="full-width">
+                    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+                        <div class="title-page"> <mat-icon class="title-icon">storage</mat-icon> Lista de Ventas</div>
+                    </div>                        
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="end end" class="full-width">
+                    <div fxFlex="100" fxLayout="row" fxLayoutAlign="end end">
+                        <button mat-raised-button color="accent" [disabled]="listaVentasHoy.length === 0" (click)="exportarExcel()">
+                            <mat-icon>get_app</mat-icon> Exportar a excel
+                        </button>
+                    </div>                        
+                </div>
+
+                <div fxLayout="row" fxFlex="100" class="full-width">
+                    <div fxFlex="100" class="tac" *ngIf="listaVentasHoy.length > 0">
+                        <table mat-table [dataSource]="dataSource" class="tac">
+                        
+                            <ng-container matColumnDef="number">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table">No.</th>
+                                <td mat-cell *matCellDef="let element; let i = index;">{{i + 1}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="items" class="tac">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Articulo/Servicio</th>
+                                <td mat-cell *matCellDef="let element"> {{element.nombre.toUpperCase()}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="quantity">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Cantidad</th>
+                                <td mat-cell *matCellDef="let element">{{element.cantidadVendida}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="amount">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Precio</th>
+                                <td mat-cell *matCellDef="let element"> {{(element.cantidadVendida * element.costoPublico) | currency: 'MXN'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="vendor">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Vendedor</th>
+                                <td mat-cell *matCellDef="let element"> {{element.vendedor}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="saleDay">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Hora</th>
+                                <td mat-cell *matCellDef="let element"> {{element.fechaVenta.toDate() | date: 'shortTime'}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="full-width" *ngIf="!existeCaja">
+            <div fxFlex="100" fxflex.md="100"  fxLayout="column" fxLayoutAlign="center center" class="card full-width">
+                <div class="example-button-row m-16">
+                    <button mat-raised-button color="primary" (click)="abrirCaja(true)" class="p-16">
+                        <mat-icon>monetization_on</mat-icon> Abrir caja</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</mat-drawer-container>

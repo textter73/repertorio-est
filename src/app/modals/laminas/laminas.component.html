@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>Láminas</h2>
+<mat-dialog-content class="mat-typography">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="full-width" style="background: white;">
+
+        <div fxFlex="50" fxflex.md="100" fxLayout="column" fxLayoutAlign="center end" class="full-width">
+            <div class="m-8">
+                <mat-form-field class="search-input" appearance="outline">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput type="text" (keyup)="filtrar($event)">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start" class="full-width">
+        
+            <table mat-table [dataSource]="dataSource" class="table-striped" *ngIf="itemsList.length > 0">
+                <ng-container matColumnDef="id" fxFlex="5">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> #</th>
+                    <td mat-cell *matCellDef="let e; let i = index" >{{e.letra}} - {{e.id}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombre" fxFlex="20">
+                    <th mat-header-cell *matHeaderCellDef class="center-header">NOMBRE</th>
+                    <td mat-cell *matCellDef="let e; let i = index" style="text-align: left;">
+                      <div class="item-name-text cp">{{ e.nombre.toUpperCase() }}</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cantidad">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> STOCK </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                      <div class="font-bold-1000 cp">{{ e.cantidad }}</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="modificacion">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> FECHA </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                      <div>{{ e.fechaModificacion.toDate() | date: 'shortDate' }}</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="usuario">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> USUARIO </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                      <div>{{ e.usuarioModifica }}</div>
+                    </td>
+                </ng-container>
+
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'grey-300-bg': row.background}" style="font-size: 11px; height: 1px;"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="font-size: 11px"></tr>
+            </table>
+            
+        
+        
+    </div>
+    <mat-paginator [length]="this.dataSource?.data" [pageSize]="20"
+                             [pageSizeOptions]="[20, 30, 60, 1000]"></mat-paginator>
+
+  
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Salir</button>
+</mat-dialog-actions>

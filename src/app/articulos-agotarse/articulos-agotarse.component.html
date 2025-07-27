@@ -1,0 +1,118 @@
+<div class="example-sidenav-content">
+    <div class="card-width" fxLayoutAlign="center center" >
+
+        <div fxLayout="row"  fxLayoutAlign="center center" class="full-width">
+            <div fxFlex="100" fxLayoutAlign="center center">
+                <div class="title-page"> <mat-icon class="title-icon">poll</mat-icon> Artículos por agotarse</div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="full-width" style="background: white;">
+
+        
+
+        <div fxFlex="50" fxflex.md="100" fxLayout="column" fxLayoutAlign="center end" class="full-width">
+            <div class="m-8" class="full-width">
+                <mat-form-field class="search-input full-width" appearance="outline">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput type="text" (keyup)="filtrar($event)">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start" class="full-width">
+        <div fxFlex="100" fxLayoutAlign="start start" class="card-amount" style="overflow: auto;">
+            <table mat-table [dataSource]="dataSource" class="table-striped">
+                <ng-container matColumnDef="np" fxFlex="5">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> #</th>
+                    <td mat-cell *matCellDef="let e; let i = index" ><div class="cp">{{e.id}}</div></td>
+                </ng-container>
+
+                <ng-container matColumnDef="clave" fxFlex="15">
+                    <th mat-header-cell *matHeaderCellDef class="center-header">CÓDIGO</th>
+                    <td mat-cell
+                        *matCellDef="let e; let i = index"
+                        [style]="e.imagen.length > 0 ? 'text-decoration: underline black; cursor: pointer' : ''"
+                        matTooltip="Ver imagen"
+                        (click)="showImg(e)">
+                      {{ e.codigo }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombre" fxFlex="20">
+                    <th mat-header-cell *matHeaderCellDef class="center-header">NOMBRE</th>
+                    <td mat-cell *matCellDef="let e; let i = index" style="text-align: left;">
+                      <div class="item-name-text cp" matTooltip="{{ e.categoria.toUpperCase() }}">{{ e.nombre.toUpperCase() }}</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cantidad">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> STOCK </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                      <div class="font-bold-1000 cp" (click)="editarArticulo(e, 'cantidad')" >{{ e.cantidad }}</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="marca">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> MARCA </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                      <div>{{ e.marca.toUpperCase() }}</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="costo">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> COSTO </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                      <div class="cp">{{ e.costo | currency: 'MXN' }}</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="costoPublico">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> PUBLICO </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                      <div class="cp"><b style="color: darkblue">{{ e.costoPublico | currency: 'MXN' }}</b></div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="caja">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> CAJA </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                      <div class="cp"><b>{{ e.caja | currency: 'MXN' }}</b></div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="modificacion">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> FECHA </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                      <div>{{ e.fechaModificacion.toDate() | date: 'shortDate' }}</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="usuario">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> USUARIO </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                      <div>{{ e.usuarioCrea }}</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="accion">
+                    <th mat-header-cell *matHeaderCellDef class="center-header"> ACCIONES </th>
+                    <td mat-cell *matCellDef="let e; let i = index">
+                        <mat-icon class="icon-green" matTooltip="Comprar" (click)="editarArticulo(e, '')">library_add</mat-icon>Comprar
+                    </td>
+                </ng-container>
+
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'grey-300-bg': row.background}" style="font-size: 11px; height: 1px;"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="font-size: 11px"></tr>
+            </table>
+            
+        </div>
+        
+    </div>
+    <mat-paginator [length]="this.dataSource?.data" [pageSize]="20"
+                             [pageSizeOptions]="[20, 30, 60, 1000]"></mat-paginator>
+
+</div>

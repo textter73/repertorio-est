@@ -1,0 +1,222 @@
+<div id="nuevoArticulo">
+    <h2 mat-dialog-title class="title-background p-8">Nuevo Artículo</h2>
+    <mat-dialog-content class="mat-typography">
+    <form [formGroup]="checkoutForm">
+        <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="full-width">
+            <div fxFlex="49" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Código</mat-label>
+                      <input 
+                        matInput
+                        placeholder="Código"
+                        formControlName="codigo"
+                        (keyup)="onCodigo($event)">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Utiliza el lector de código de barras</mat-hint>
+                    </mat-form-field>
+                </p>
+            </div>
+            <div fxFlex="49" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Nombre del artículo</mat-label>
+                      <input 
+                        matInput 
+                        placeholder="Nombre del artículo"
+                        formControlName="nombre">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Ingrese nombre del artículo</mat-hint>
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="full-width">
+            <div fxFlex="49" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Marca</mat-label>
+                      <input 
+                        (keyup)="filtrarMarca($event)"
+                        matInput
+                        placeholder="Marca"
+                        [matAutocomplete]="marcaControl"
+                        formControlName="marca">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Selecciona una marca</mat-hint>
+                        <mat-autocomplete autoActiveFirstOption (optionSelected)="marcaSelected($event)" #marcaControl="matAutocomplete">
+                            <mat-option *ngFor="let option of catalogoMarcasAux" [value]="option.nombre.toUpperCase()">
+                              {{ option.nombre.toUpperCase() }}
+                            </mat-option>
+                          </mat-autocomplete>
+                    </mat-form-field>
+                </p>
+            </div>
+            <div fxFlex="49" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Categoría</mat-label>
+                      <input 
+                        matInput
+                        placeholder="Categoría"
+                        (keyup)="filtrarCategoria($event)"
+                        [matAutocomplete]="categoriaControl"
+                        formControlName="categoria">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Ingrese nombre del artículo</mat-hint>
+                      <mat-autocomplete autoActiveFirstOption (optionSelected)="categoriaSelected($event)" #categoriaControl="matAutocomplete">
+                        <mat-option *ngFor="let option of catalogoCategoriasAux" [value]="option.nombre.toUpperCase()">
+                          {{ option.nombre.toUpperCase() }}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="full-width">
+            <div fxFlex="19" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Porcentaje</mat-label>
+                      <input 
+                        matInput 
+                        placeholder="Placeholder"
+                        [matAutocomplete]="porcentaje"
+                        formControlName="porcentaje"
+                        (keyup)="sugerirCostos()">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Porcentaje de ganancia</mat-hint>
+                      <mat-autocomplete autoActiveFirstOption (optionSelected)="percentageSelected($event)" #porcentaje="matAutocomplete">
+                        <mat-option *ngFor="let option of options" [value]="option.value">
+                          {{option.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                </p>
+            </div>
+            <div fxFlex="19" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Costo</mat-label>
+                      <input 
+                        matInput
+                        placeholder="Costo del producto"
+                        formControlName="costo"
+                        (keyup)="sugerirCostos()">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Costo del producto</mat-hint>
+                    </mat-form-field>
+                </p>
+            </div>
+            <div fxFlex="19" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Cantidad</mat-label>
+                      <input 
+                        matInput 
+                        placeholder="Cantidad"
+                        formControlName="cantidad"
+                        (keyup)="sugerirCostos()">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Cantidad comprada</mat-hint>
+                    </mat-form-field>
+                </p>
+            </div>
+            <div fxFlex="19" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Costo unitario</mat-label>
+                      <input 
+                        matInput 
+                        placeholder="Costo unitario"
+                        formControlName="costoUnitario">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Costo untario</mat-hint>
+                    </mat-form-field>
+                </p>
+            </div>
+            <div fxFlex="19" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Precio al público</mat-label>
+                      <input 
+                        matInput 
+                        placeholder="Precio al público"
+                        formControlName="precioPublico">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Precio al público</mat-hint>
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="full-width">
+            <div fxFlex="32" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Total</mat-label>
+                      <input 
+                        matInput
+                        placeholder="Total"
+                        formControlName="total">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Cantidad a obtener</mat-hint>
+                    </mat-form-field>
+                </p>
+            </div>
+            <div fxFlex="33" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Ganancia</mat-label>
+                      <input 
+                        matInput
+                        placeholder="Ganacia"
+                        formControlName="ganancia">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Ganancia a obtener</mat-hint>
+                    </mat-form-field>
+                </p>
+            </div>
+            <div fxFlex="32" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Precio por caja</mat-label>
+                      <input 
+                        matInput 
+                        placeholder="Precio por caja"
+                        formControlName="caja">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Precio por caja</mat-hint>
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutGap="10px" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="full-width">
+            <div fxFlex="100" fxflex.md="100" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+                <p class="full-width">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Imágen</mat-label>
+                      <input 
+                        matInput 
+                        placeholder="Imágen"
+                        formControlName="imagen">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Imágen del producto</mat-hint>
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
+
+    </form>
+    
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button color="primary" (click)="nuevaMarca()">Agregar marca</button>
+        <button mat-raised-button color="accent" (click)="nuevaCategoria()">Agregar categoria</button>
+        <button mat-raised-button color="basic" mat-dialog-close>Cancel</button>
+        <button mat-raised-button color="warn" (click)="validarDatos()" [disabled]="existe">Guardar</button>
+    </mat-dialog-actions>
+</div>

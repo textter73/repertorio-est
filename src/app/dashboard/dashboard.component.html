@@ -1,0 +1,32 @@
+<div #dashboard class="example-sidenav-content"> 
+    <div class="card-width" fxLayoutAlign="center center" >
+
+        <div fxLayout="row"  fxLayoutAlign="center center" class="full-width">
+            <div fxFlex="100" fxLayoutAlign="center center">
+                <div class="title-page"> <mat-icon class="title-icon">poll</mat-icon> Dashboard</div>
+            </div>
+        </div>
+        
+    </div>
+    <mat-tab-group>
+        <mat-tab label="2024">
+            <div class="tac">
+                <p>Promedio: {{ promedio2024 | currency: 'MXN'}}</p>
+            </div>
+            
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="full-width" style="background: white;">
+                <div id="chartdivnew" class="full-width h-90-vh"></div>
+            </div>
+        </mat-tab>
+        <mat-tab label="2023">
+            <div class="tac">
+                <p>Promedio: {{ promedio2023 | currency: 'MXN'}}</p>
+            </div>
+            
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="full-width" style="background: white;">
+                <div id="chartdiv" class="full-width h-90-vh"></div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+    
+</div>

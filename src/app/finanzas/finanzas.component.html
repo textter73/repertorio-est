@@ -1,0 +1,430 @@
+<div fxLayout="row">
+
+    <div fxFlex="20" fxflex.md="100" fxLayout="column" fxLayoutAlign="start center" class="card full-width">
+        <mat-accordion class="full-width" multi>
+            <!--  
+            <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>EN CAJA</b>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="h30">{{dineroEnCaja | currency: 'MXN'}}</div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>PAPELERÍA</b>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="h30">{{totalPapeleria | currency: 'MXN'}}</div>
+            </mat-expansion-panel>-->
+
+            <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>LA PAPE</b>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="h30">{{totalPapeleria | currency: 'MXN'}}</div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>RECARGAS</b>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="h30">{{totalRecargas | currency: 'MXN'}}</div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>SUBTOTAL</b>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="h30">{{(totalRecargas+totalPapeleria) | currency: 'MXN'}}</div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>DULCE</b>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="h30">{{totalDulce | currency: 'MXN'}}</div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>TOTAL</b>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="h30">{{((dineroEnCaja*1)+totalRecargas+totalPapeleria+totalDulce) | currency: 'MXN'}}</div>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+        <br>
+        <section>
+            <div class="example-button-row">
+              <button mat-raised-button color="primary" (click)="agregarEgreso()">Agregar egreso</button>
+            </div>
+        </section>
+    </div>
+
+    <mat-tab-group fxFlex="80">
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon" [matBadge]="pendientes.length"
+                    matBadgeColor="accent">assignment</mat-icon>
+                Pendientes de contabilizar
+            </ng-template>
+
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center start" class="full-width">
+                <div fxFlex="100" fxflex.md="100" fxLayout="column" fxLayoutAlign="center start"
+                    class="card full-width">
+
+                    <div fxLayout="row" fxLayoutAlign="center center" class="full-width">
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+                            <div class="title-page"> <mat-icon class="title-icon">storage</mat-icon> Pendientes
+                                de contabilizar</div>
+                        </div>
+                    </div>
+
+                    <!--<div fxLayout="row" fxLayoutAlign="end end" class="full-width">
+                      <div fxFlex="100" fxLayout="row" fxLayoutAlign="end end">
+                          <button mat-raised-button color="accent" [disabled]="listaVentasHoy.length === 0">
+                              <mat-icon>get_app</mat-icon> Exportar a excel
+                          </button>
+                      </div>                        
+                  </div>-->
+
+                    <div fxLayout="row" fxFlex="100" class="full-width">
+                        <div fxFlex="100" class="tac">
+                            <table mat-table [dataSource]="dataPendientes" class="tac">
+
+                                <ng-container matColumnDef="number">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table">No.</th>
+                                    <td mat-cell *matCellDef="let element; let i = index;">{{element['id']}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="fecha" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Fecha
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"
+                                        style="max-width: 20px; overflow: auto;">
+                                        {{ element['fecha'] }}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidad" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Cantidad
+                                        vendida</th>
+                                    <td mat-cell *matCellDef="let element"
+                                        style="max-width: 20px; overflow: auto;">
+                                        {{ element['cantidadVendida'] | currency: 'MXN' }}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="tipo">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Tipo
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Acción
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <mat-icon class="icon-add cp" (click)="saveSale(element)">add</mat-icon>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsPendientes"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsPendientes;"></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">store</mat-icon>
+                Papeleria
+            </ng-template>
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center start" class="full-width">
+                <div fxFlex="100" fxflex.md="100" fxLayout="column" fxLayoutAlign="center start"
+                    class="card full-width">
+
+                    <div fxLayout="row" fxLayoutAlign="center center" class="full-width">
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+                            <div class="title-page"> <mat-icon class="title-icon">storage</mat-icon>
+                                Papeleria
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div fxLayout="row" fxLayoutAlign="end end" class="full-width">
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="end end">
+                            <button mat-raised-button color="accent" [disabled]="listaVentasHoy.length === 0">
+                                <mat-icon>get_app</mat-icon> Exportar a excel
+                            </button>
+                        </div>                        
+                    </div>-->
+
+                    <div fxLayout="row" fxFlex="100" class="full-width">
+                        <div fxFlex="100" class="tac">
+                            <table mat-table [dataSource]="dataPapeleria" class="tac full-width">
+                            
+                                <ng-container matColumnDef="number">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table" fxFlex="5">No.</th>
+                                    <td mat-cell *matCellDef="let element; let i = index;" fxFlex="5">{{element['id']}}</td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="fecha" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac" fxFlex="15">Fecha</th>
+                                    <td mat-cell *matCellDef="let element" fxFlex="15"> 
+                                        {{    element['fecha']   }}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidad" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac" fxFlex="10">Cantidad vendida</th>
+                                    <td mat-cell *matCellDef="let element" fxFlex="10"> 
+                                      {{    element['cantidadVendida'] | currency: 'MXN'   }}
+                                    </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="tipo">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Tipo</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="descripcion">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac" fxFlex="50">Descripcion</th>
+                                    <td mat-cell *matCellDef="let element" fxFlex="50"> {{element.descripcion.toUpperCase()}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="anterior">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac" fxFlex="10">Anterior</th>
+                                    <td mat-cell *matCellDef="let element" fxFlex="10"> {{element.anterior | currency: 'MXN'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="actual">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac" fxFlex="10">Actual</th>
+                                    <td mat-cell *matCellDef="let element" fxFlex="10"> {{element.actual | currency: 'MXN'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="action">
+                                  <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Acción</th>
+                                  <td mat-cell *matCellDef="let element">
+                                      <mat-icon class="icon-add">add</mat-icon>
+                                  </td>
+                                </ng-container>
+    
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsRecargas"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsRecargas;"></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">settings_cell</mat-icon>
+                Recargas
+            </ng-template>
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center start" class="full-width">
+                <div fxFlex="100" fxflex.md="100" fxLayout="column" fxLayoutAlign="center start"
+                    class="card full-width">
+
+                    <div fxLayout="row" fxLayoutAlign="center center" class="full-width">
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+                            <div class="title-page"> <mat-icon class="title-icon">storage</mat-icon>
+                                Recargas
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div fxLayout="row" fxLayoutAlign="end end" class="full-width">
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="end end">
+                            <button mat-raised-button color="accent" [disabled]="listaVentasHoy.length === 0">
+                                <mat-icon>get_app</mat-icon> Exportar a excel
+                            </button>
+                        </div>                        
+                    </div>-->
+
+                    <div fxLayout="row" fxFlex="100" class="full-width">
+                        <div fxFlex="100" class="tac">
+                            <table mat-table [dataSource]="dataRecargas" class="tac">
+                            
+                                <ng-container matColumnDef="number">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table">No.</th>
+                                    <td mat-cell *matCellDef="let element; let i = index;">{{element['id']}}</td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="fecha" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Fecha</th>
+                                    <td mat-cell *matCellDef="let element" style="max-width: 20px; overflow: auto;"> 
+                                        {{    element['fecha']   }}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidad" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Cantidad vendida</th>
+                                    <td mat-cell *matCellDef="let element" style="max-width: 20px; overflow: auto;"> 
+                                      {{    element['cantidadVendida'] | currency: 'MXN'   }}
+                                    </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="tipo">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Tipo</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="descripcion">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Descripcion</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.descripcion.toUpperCase()}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="anterior">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Anterior</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.anterior | currency: 'MXN'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="actual">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Actual</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.actual | currency: 'MXN'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="action">
+                                  <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Acción</th>
+                                  <td mat-cell *matCellDef="let element">
+                                      <mat-icon class="icon-add">add</mat-icon>
+                                  </td>
+                                </ng-container>
+    
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsRecargas"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsRecargas;"></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">wb_incandescent</mat-icon>
+                Dulce
+            </ng-template>
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center start" class="full-width">
+                <div fxFlex="100" fxflex.md="100" fxLayout="column" fxLayoutAlign="center start"
+                    class="card full-width">
+
+                    <div fxLayout="row" fxLayoutAlign="center center" class="full-width">
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+                            <div class="title-page"> <mat-icon class="title-icon">storage</mat-icon>
+                                Dulce
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div fxLayout="row" fxLayoutAlign="end end" class="full-width">
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="end end">
+                            <button mat-raised-button color="accent" [disabled]="listaVentasHoy.length === 0">
+                                <mat-icon>get_app</mat-icon> Exportar a excel
+                            </button>
+                        </div>                        
+                    </div>-->
+
+                    <div fxLayout="row" fxFlex="100" class="full-width">
+                        <div fxFlex="100" class="tac">
+                            <table mat-table [dataSource]="dataDulce" class="tac">
+                            
+                                <ng-container matColumnDef="number">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table">No.</th>
+                                    <td mat-cell *matCellDef="let element; let i = index;">{{element['id']}}</td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="fecha" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Fecha</th>
+                                    <td mat-cell *matCellDef="let element" style="max-width: 20px; overflow: auto;"> 
+                                        {{    element['fecha']   }}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidad" class="tac">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Cantidad vendida</th>
+                                    <td mat-cell *matCellDef="let element" style="max-width: 20px; overflow: auto;"> 
+                                      {{    element['cantidadVendida'] | currency: 'MXN'   }}
+                                    </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="tipo">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Tipo</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="descripcion">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Descripcion</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.descripcion.toUpperCase()}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="anterior">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Anterior</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.anterior | currency: 'MXN'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="actual">
+                                    <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Actual</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.actual | currency: 'MXN'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="action">
+                                  <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Acción</th>
+                                  <td mat-cell *matCellDef="let element">
+                                      <mat-icon class="icon-add">add</mat-icon>
+                                  </td>
+                                </ng-container>
+    
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsRecargas"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsRecargas;"></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </mat-tab>
+
+    </mat-tab-group>
+</div>

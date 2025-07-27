@@ -1,0 +1,317 @@
+<h2 mat-dialog-title class="title-background p-8"><mat-icon>library_books</mat-icon>Resúmen del día</h2>
+
+<div mat-dialog-content #resumenDia>
+    
+        <mat-stepper linear #stepper>
+            <mat-step style="background: red;">
+                <ng-template matStepLabel>Ventas de papelería</ng-template>
+                <div style="padding: 8px; width: 100%; border: solid 2px #673ab7; border-radius: 5px; text-align: center;">
+                    <p>Favor de verificar que todas las ventas estén registradas en el siguiente listado.</p>
+                    <button  mat-raised-button color="accent" matStepperNext>Confirmar</button>
+                </div>
+                <br>
+                <div fxLayout="row" fxFlex="100" class="full-width">
+                    <div fxFlex="100" class="tac" *ngIf="data.papeleria.length > 0">
+                        <table mat-table [dataSource]="dataSourcePapeleria" class="tac">
+    
+                            <ng-container matColumnDef="number">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table">No.</th>
+                                <td mat-cell *matCellDef="let element; let i = index;">{{i + 1}}</td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="items" class="tac">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">
+                                    Articulo/Servicio</th>
+                                <td mat-cell *matCellDef="let element" style="max-width: 20px; overflow: auto;">
+                                    {{element.nombre.toUpperCase()}} | {{element.marca ?
+                                    element.marca.toUpperCase() : '--'}}
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="quantity">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Cantidad
+                                </th>
+                                <td mat-cell *matCellDef="let element">{{element.cantidadVendida}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="amount">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Precio</th>
+                                <td mat-cell *matCellDef="let element"> {{(element.cantidadVendida *
+                                    element.costoPublico) | currency: 'MXN'}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="vendor">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Vendedor
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.vendedor}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="saleDay">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Hora</th>
+                                <td mat-cell *matCellDef="let element"> {{element.fechaVenta.toDate() | date:
+                                    'shortTime'}} </td>
+                            </ng-container>
+    
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsSalesList"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsSalesList;"></tr>
+                        </table>
+                    </div>
+    
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Ventas de recargas</ng-template>
+                <div style="padding: 8px; width: 100%; border: solid 2px #673ab7; border-radius: 5px; text-align: center;">
+                    <p>Favor de verificar que estén todas las recargas registradas.</p>
+                    <button  mat-raised-button color="accent" matStepperNext>Confirmar</button>
+                </div>
+                <br>
+                <div *ngIf="data.recargas.length === 0">
+                    <p>No hay recargas por registrar</p>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100" class="full-width">
+                    <div fxFlex="100" class="tac" *ngIf="data.recargas.length > 0">
+                        <table mat-table [dataSource]="dataSourceRecargas" class="tac">
+    
+                            <ng-container matColumnDef="number">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table">No.</th>
+                                <td mat-cell *matCellDef="let element; let i = index;">{{i + 1}}</td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="items" class="tac">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">
+                                    Articulo/Servicio</th>
+                                <td mat-cell *matCellDef="let element" style="max-width: 20px; overflow: auto;">
+                                    {{element.nombre.toUpperCase()}} | {{element.marca ?
+                                    element.marca.toUpperCase() : '--'}}
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="quantity">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Cantidad
+                                </th>
+                                <td mat-cell *matCellDef="let element">{{element.cantidadVendida}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="amount">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Precio</th>
+                                <td mat-cell *matCellDef="let element"> {{(element.cantidadVendida *
+                                    element.costoPublico) | currency: 'MXN'}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="vendor">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Vendedor
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.vendedor}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="saleDay">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Hora</th>
+                                <td mat-cell *matCellDef="let element"> {{element.fechaVenta.toDate() | date:
+                                    'shortTime'}} </td>
+                            </ng-container>
+    
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsSalesList"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsSalesList;"></tr>
+                        </table>
+                    </div>
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Corte de caja</ng-template>
+                <div style="padding: 8px; width: 100%; border: solid 2px #673ab7; border-radius: 5px; text-align: center;">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <p>Favor de ingresar los siguientes datos.</p>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-form-field style="min-width: 200px">
+                            <mat-label>Monedas</mat-label>
+                            <input matInput type="number" placeholder="Monedas" [(ngModel)]="monedas">
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-form-field style="min-width: 200px">
+                            <mat-label>Billetes</mat-label>
+                            <input matInput type="number" placeholder="Billetes" [(ngModel)]="billetes">
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button  mat-raised-button color="accent" matStepperNext [disabled]="monedas === 0 && billetes === 0">Confirmar</button>
+                    </div>
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Confirmar cantidad</ng-template>
+                <div fxLayout="row" fxLayoutAlign="center center" class="p-12 m-4 tac full-width">
+                    <mat-card>
+                        <mat-card-content>
+                            <p>Sistema</p>
+                            <h1><b>{{(+data.totalPapeleria + +data.totalRecargas + +data.totalCaja) | currency: 'MXN'}}</b></h1>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-content>
+                            <p>Real</p>
+                            <h1><b>{{monedas + billetes | currency: 'MXN'}}</b></h1>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card *ngIf="((monedas + billetes) - (+data.totalPapeleria + +data.totalRecargas + +data.totalCaja)) !== 0">
+                        <mat-card-content>
+                            <p>Extras</p>
+                            <h1><b>{{((monedas + billetes) - (+data.totalPapeleria + +data.totalRecargas + +data.totalCaja)) | currency: 'MXN'}}</b></h1>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-content>
+                            <p>Dulce</p>
+                            <h1><b>{{(data.totalDulce) | currency: 'MXN'}}</b></h1>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <button  mat-raised-button color="accent" (click)="verificaExtras()">Confirmar</button>
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Confirmar papelería</ng-template>
+                <div fxLayout="row" fxLayoutAlign="center center" class="p-12 m-4 tac full-width">
+                    <div style="padding: 8px; width: 100%; border: solid 2px #673ab7; border-radius: 5px; text-align: center;">
+                        <p>Favor de verificar que todas las ventas estén registradas en el siguiente listado.</p>
+                        <button  mat-raised-button color="accent" matStepperNext (click)="guardarPapeleria()">Guardar papeleria {{idActual}}</button>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center" class="p-12 m-4 tac full-width">
+                    <mat-card>
+                        <mat-card-content>
+                            <p>Papeleria</p>
+                            <h1><b>{{(+data.totalPapeleria) | currency: 'MXN'}}</b></h1>
+                        </mat-card-content>
+                    </mat-card>
+                </div>  
+                <div fxLayout="row" fxFlex="100" class="full-width">
+                    <div fxFlex="100" class="tac" *ngIf="data.papeleria.length > 0">
+                        <table mat-table [dataSource]="dataSourcePapeleria" class="tac">
+    
+                            <ng-container matColumnDef="number">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table">No.</th>
+                                <td mat-cell *matCellDef="let element; let i = index;">{{i + 1}}</td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="items" class="tac">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">
+                                    Articulo/Servicio</th>
+                                <td mat-cell *matCellDef="let element" style="max-width: 20px; overflow: auto;">
+                                    {{element.nombre.toUpperCase()}} | {{element.marca ?
+                                    element.marca.toUpperCase() : '--'}}
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="quantity">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Cantidad
+                                </th>
+                                <td mat-cell *matCellDef="let element">{{element.cantidadVendida}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="amount">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Precio</th>
+                                <td mat-cell *matCellDef="let element"> {{(element.cantidadVendida *
+                                    element.costoPublico) | currency: 'MXN'}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="vendor">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Vendedor
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.vendedor}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="saleDay">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Hora</th>
+                                <td mat-cell *matCellDef="let element"> {{element.fechaVenta.toDate() | date:
+                                    'shortTime'}} </td>
+                            </ng-container>
+    
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsSalesList"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsSalesList;"></tr>
+                        </table>
+                    </div>
+    
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Confirmar recargas</ng-template>
+                <div fxLayout="row" fxLayoutAlign="center center" class="p-12 m-4 tac full-width">
+                    <div style="padding: 8px; width: 100%; border: solid 2px #673ab7; border-radius: 5px; text-align: center;">
+                        <p>Favor de verificar que todas las ventas estén registradas en el siguiente listado.</p>
+                        <button  mat-raised-button color="accent" matStepperNext (click)="guardarRecargas()">Guardar recargas {{idActual2}}</button>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center" class="p-12 m-4 tac full-width">
+                    <mat-card>
+                        <mat-card-content>
+                            <p>Recargas</p>
+                            <h1><b>{{(+data.totalRecargas) | currency: 'MXN'}}</b></h1>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div *ngIf="data.recargas.length === 0">
+                    <p>No hay recargas regitradas.</p>
+                </div>
+                    
+                <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100" class="full-width" *ngIf="data.recargas.length > 0">
+                    <div fxFlex="100" class="tac" *ngIf="data.papeleria.length > 0">
+                        <table mat-table [dataSource]="dataSourceRecargas" class="tac">
+    
+                            <ng-container matColumnDef="number">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table">No.</th>
+                                <td mat-cell *matCellDef="let element; let i = index;">{{i + 1}}</td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="items" class="tac">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">
+                                    Articulo/Servicio</th>
+                                <td mat-cell *matCellDef="let element" style="max-width: 20px; overflow: auto;">
+                                    {{element.nombre.toUpperCase()}} | {{element.marca ?
+                                    element.marca.toUpperCase() : '--'}}
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="quantity">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Cantidad
+                                </th>
+                                <td mat-cell *matCellDef="let element">{{element.cantidadVendida}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="amount">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Precio</th>
+                                <td mat-cell *matCellDef="let element"> {{(element.cantidadVendida *
+                                    element.costoPublico) | currency: 'MXN'}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="vendor">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Vendedor
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.vendedor}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="saleDay">
+                                <th mat-header-cell *matHeaderCellDef class="text-header-table tac">Hora</th>
+                                <td mat-cell *matCellDef="let element"> {{element.fechaVenta.toDate() | date:
+                                    'shortTime'}} </td>
+                            </ng-container>
+    
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsSalesList"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsSalesList;"></tr>
+                        </table>
+                    </div>
+                </div>
+                
+            </mat-step>
+
+        </mat-stepper>
+</div>

@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Agregar Egreso</h2>
+<mat-dialog-content class="mat-typography" >
+    
+    <mat-form-field class="example-form-field">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="text" [(ngModel)]="cantidadVendida">
+    </mat-form-field>    
+
+    <mat-form-field class="example-form-field">
+        <mat-label>Descripción</mat-label>
+        <input matInput type="text" [(ngModel)]="descripcion">
+    </mat-form-field> 
+
+    <mat-form-field class="example-form-field">
+        <mat-label>Fecha</mat-label>
+        <input matInput type="text" [(ngModel)]="fecha">
+    </mat-form-field> 
+
+    <mat-form-field class="example-form-field">
+        <mat-label>Tipo</mat-label>
+        <input matInput type="text" [(ngModel)]="tipo">
+    </mat-form-field> 
+    
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button (click)="guardarEgreso()">Guardar</button>
+</mat-dialog-actions>
