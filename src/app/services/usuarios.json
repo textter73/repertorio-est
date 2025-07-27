@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "active": true,
+    "name": "Juan Angel",
+    "firstName": "Ortiz",
+    "lastName": "Contreras",
+    "profileId": 99,
+    "profile": "Tuno",
+    "imgProfile": "aortiz.jpg",
+    "userName": "aortiz",
+    "password": 5614,
+    "level": 1
+  }
+]

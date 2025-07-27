@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import 'animate.css';
 
 @Component({
-    selector: 'app-terminal-punto-venta',
-    templateUrl: './terminal-punto-venta.component.html',
-    styleUrls: ['./terminal-punto-venta.component.scss']
+    selector: 'app-inicio',
+    templateUrl: './inicio.component.html',
+    styleUrls: ['./inicio.component.scss']
 })
-export class TerminalPuntoVentaComponent implements OnInit {
+export class InicioComponent implements OnInit {
     usernName = '';
     nameProfile = '';
     imgProfile = '';
@@ -34,13 +34,17 @@ export class TerminalPuntoVentaComponent implements OnInit {
     }
 
     exit(): void {
-        localStorage.removeItem('nombre');
-        localStorage.removeItem('apllPtrn');
-        localStorage.removeItem('apllMtrn');
-        localStorage.removeItem('perfil');
-        localStorage.removeItem('usuario');
-        localStorage.removeItem('imagenPerfil');
-        localStorage.removeItem('nombrePerfil');
+        localStorage.removeItem('id');
+        localStorage.removeItem('active');
+        localStorage.removeItem('name');
+        localStorage.removeItem('firstName');
+        localStorage.removeItem('lastName');
+        localStorage.removeItem('profileId');
+        localStorage.removeItem('profile');
+        localStorage.removeItem('imgProfile');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('password');
+        localStorage.removeItem('level');
         location.reload();
     }
 

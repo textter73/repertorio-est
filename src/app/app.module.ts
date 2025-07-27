@@ -37,10 +37,11 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { TerminalPuntoVentaComponent } from './terminal-punto-venta/terminal-punto-venta.component';
+import { InicioComponent } from './inicio/inicio.component';
 import { TopNavBarComponent } from './top-nav-bar/top-nav-bar.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatListModule} from '@angular/material/list';
+import { PersonalInformationComponent } from './personal-information/personal-information.component';
 registerLocaleData(locales, 'es-MX')
 
 @NgModule({
@@ -49,7 +50,8 @@ registerLocaleData(locales, 'es-MX')
     LoginComponent,
     VerImagenComponent,
     TopNavBarComponent,
-    TerminalPuntoVentaComponent
+    InicioComponent,
+    PersonalInformationComponent
   ],
   imports: [
       AngularFireModule.initializeApp(environment.firebase),

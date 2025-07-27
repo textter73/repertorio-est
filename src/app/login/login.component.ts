@@ -5,6 +5,8 @@ import { map, Observable, share, Subscription, timer } from 'rxjs';
 import Swal from 'sweetalert2';
 import * as moment from 'moment/moment';
 
+import usuarios from '../services/usuarios.json'
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('');
     this.crearFormulario();
     this.clock();
+    this.usersFind = usuarios;
   }
 
   clock(): any {
@@ -61,24 +64,26 @@ export class LoginComponent implements OnInit {
 
   async validarUsuario() {
     Swal.showLoading();
-    let usuario = this.itemForm.controls['usuario'].value;
+    let userName = this.itemForm.controls['usuario'].value;
     let password = this.itemForm.controls['password'].value;
-    /*
-    let data = this.usersFind.find((x: any) => x.usuario === usuario);
     
-    if (data && data.password === password && data.activo) {
+    let data = this.usersFind.find((x: any) => x.userName === userName && +password === +x.password && x.active);
+    console.log(data);
+    
+    if (data) {
+      
       localStorage.setItem('id', data.id);
-      localStorage.setItem('nivel', data.nivel);
-      localStorage.setItem('nombre', data.nombre);
-      localStorage.setItem('apllPtrn', data.apellidoPaterno);
-      localStorage.setItem('apllMtrn', data.apellidoMaterno);
-      localStorage.setItem('perfil', data.perfil);
-      localStorage.setItem('usuario', data.usuario);
-      localStorage.setItem('imagenPerfil', data.imagenPerfil);
-      localStorage.setItem('nombrePerfil', data.nombrePerfil);
+      localStorage.setItem('level', data.level);
+      localStorage.setItem('name', data.name);
+      localStorage.setItem('firstName', data.firstName);
+      localStorage.setItem('lastName', data.lastName);
+      localStorage.setItem('profile', data.profile);
+      localStorage.setItem('profileId', data.profileId);
+      localStorage.setItem('userName', data.userName);
+      localStorage.setItem('imgProfile', data.imgProfile);
       Swal.close();
       
-      this.router.navigateByUrl('terminal-punto-venta');
+      this.router.navigateByUrl('inicio');
       
     } else {
       Swal.close();
@@ -88,7 +93,6 @@ export class LoginComponent implements OnInit {
         text: 'Usuario o contraseña incorrecta'
       })
     }
-    */
   }
 
 }

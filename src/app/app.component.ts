@@ -60,19 +60,23 @@ export class AppComponent {
     this.nameProfile = `${localStorage.getItem("nombrePerfil")}`;
     this.imgProfile = `${localStorage.getItem("imagenPerfil")}`;
     this.userData = `${localStorage.getItem("usuario")}`;
-    this.profile = parseInt(`${localStorage.getItem("perfil")}`);
+    this.profile = parseInt(`${localStorage.getItem("profileId")}`);
 
     this.cdr.detectChanges();
   }
 
   exit(): void {
-    localStorage.removeItem('nombre');
-    localStorage.removeItem('apllPtrn');
-    localStorage.removeItem('apllMtrn');
-    localStorage.removeItem('perfil');
-    localStorage.removeItem('usuario');
-    localStorage.removeItem('imagenPerfil');
-    localStorage.removeItem('nombrePerfil');
+    localStorage.removeItem('id');
+    localStorage.removeItem('active');
+    localStorage.removeItem('name');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('profileId');
+    localStorage.removeItem('profile');
+    localStorage.removeItem('imgProfile');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('password');
+    localStorage.removeItem('level');
     this.profile = 0;
     location.reload();
     this.router.navigateByUrl('');

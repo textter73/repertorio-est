@@ -15,33 +15,12 @@
         <mat-tab-group>
             <mat-tab>
                 <ng-template mat-tab-label>
-                    <mat-icon class="example-tab-icon">person</mat-icon>
-                    Mi perfil
+                    <mat-icon class="example-tab-icon">account_balance_wallet</mat-icon>
+                    Inicio
                 </ng-template>
-
-                <mat-card appearance="outlined" style="margin: 8px;">
-                    <mat-card-header>
-                        <mat-card-title> {{ usernName }} </mat-card-title>
-                        <mat-card-subtitle>{{ nameProfile | uppercase }}</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div fxLayout="row" fxLayout.lt-sm="row" fxLayoutAlign="center center">
-                            <div fxFlex="calc(40%)" fxFlex.lt-md="calc(30%)" fxFlex.lt-sm="40"
-                                fxLayoutAlign="start center">
-                                <img src="../../../../../assets/img/{{imgProfile}}" width="100px" height="100px"
-                                    class="img-profile">
-                            </div>
-
-                            <div fxFlex="calc(60%)" fxFlex.lt-md="calc(70%)" fxFlex.lt-sm="60"
-                                fxLayoutAlign="start center">
-                                <p>En construcción</p>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-
+                <personal-information></personal-information>
             </mat-tab>
-
+            <!--
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon class="example-tab-icon">receipt</mat-icon>
@@ -120,6 +99,8 @@
 
                 En construcción
             </mat-tab>
+
+            -->
         </mat-tab-group>
     </div>
 
