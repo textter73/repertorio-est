@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/repertorio-est",
+    "public": "dist/control-estonantzin",
     "ignore": [
       "firebase.json",
       "**/.*",

@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "repertorio-est",
+    "default": "control-estonantzin",
     "repetorio-est": "control-estonantzin"
   },
   "targets": {},

@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/repertorio-est'),
+      dir: require('path').join(__dirname, './coverage/control-estonantzin'),
       subdir: '.',
       reporters: [
         { type: 'html' },
