@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-
-import eventList from '../services/eventos.json'
 import { ShowListComponent } from '../modals/show-list/show-list.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EventosServices } from '../services/eventos.services';
 
 @Component({
     selector: 'event-list',
@@ -18,11 +17,22 @@ export class EventListComponent implements OnInit {
     eventList: any = [];
     constructor(
         private cdr: ChangeDetectorRef,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private _eventosServices: EventosServices,
     ) { }
+
+    async listadoEventos() {
+        this._eventosServices.listadoEventos().subscribe(data => {
+            for (const item of data) {
+                item.fechaFormato = new Date(item.fechaEvento.seconds * 1000 + item.fechaEvento.nanoseconds / 1000000);
+            }
+            this.eventList = data;
+        });
+    }
 
     async ngOnInit(): Promise<void> {
         this.getLocalStorage();
+        this.listadoEventos();
     }
 
     getLocalStorage(): void {
@@ -32,18 +42,14 @@ export class EventListComponent implements OnInit {
             profile: `${localStorage.getItem("profile")}`,
             imgProfile: `${localStorage.getItem("imgProfile")}`,
             id: `${localStorage.getItem("id")}`
-        } 
-        
-
-        this.eventList = eventList;
-
+        }
         this.cdr.detectChanges();
     }
 
     showList(item: any): any {
         this.dialog.open(ShowListComponent, {
-            panelClass: 'full-width-dialog',
             width: '100%',
+            height: 'auto',
             data: item
         });
 

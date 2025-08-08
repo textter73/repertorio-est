@@ -22,9 +22,9 @@ export class PersonalInformationComponent implements OnInit {
     getLocalStorage(): void {
         this.cdr.detectChanges();
         this.personalInformation = {
-            fullName: `${localStorage.getItem("name")} ${localStorage.getItem("firstName")} ${localStorage.getItem("lastName")}`,
-            profile: `${localStorage.getItem("profile")}`,
-            imgProfile: `${localStorage.getItem("imgProfile")}`
+            fullName: `${localStorage.getItem("nombre")} ${localStorage.getItem("apellidoPaterno")} ${localStorage.getItem("apellidoMaterno")}`,
+            profile: `${localStorage.getItem("nombrePerfil")}`,
+            imgProfile: `${localStorage.getItem("imagenPerfil")}`
         } 
 
         this.cdr.detectChanges();

@@ -9,33 +9,40 @@
             <mat-card style="padding: 0px; width: 100%; margin: 2px; margin-bottom: 6px;" fxFlex="calc(100%)" fxFlex.lt-md="calc(100%)" fxFlex.lt-sm="100" fxLayoutAlign="start center"
                 *ngFor="let item of eventList">
                 <mat-card-content style="padding: 8px; width: 100%;">
-                    <div fxLayout="row" fxLayout.lt-sm="row" fxLayoutAlign="center center" style="width: 100%; background: #f6ff00; margin-bottom: 16px;">
-                        <div fxFlex="calc(100%)" fxFlex.lt-md="calc(100%)" fxFlex.lt-sm="100" fxLayoutAlign="center center">
-                            <div style="margin: 8px;"><b>{{ item. type || ''}}</b></div>
+                    <div fxLayout="row" fxLayout.lt-sm="row" fxLayoutAlign="center center">
+                        <div *ngIf="+item.tipoId === 1" fxFlex="calc(100%)" fxFlex.lt-md="calc(100%)" fxFlex.lt-sm="100" fxLayoutAlign="center center" style="width: 100%; background: #5ce1e6;; margin-bottom: 4px;">
+                            <div style="margin: 8px;"><b>{{ item.tipo || ''}}</b></div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-sm="row" fxLayoutAlign="center center">
+                        <div fxFlex="calc(100%)" fxFlex.lt-md="calc(100%)" fxFlex.lt-sm="100" fxLayoutAlign="center center" style="margin-bottom: 8px;">
+                            <div style="margin: 8px;"><b>{{ item.descripcion | uppercase }}</b></div>
                         </div>
                     </div>
                     <div fxLayout="row" fxLayout.lt-sm="row" fxLayoutAlign="center center">
                         <div fxFlex="calc(25%)" fxFlex.lt-md="calc(25%)" fxFlex.lt-sm="25" fxLayoutAlign="start start">
                             <div fxLayout="column" fxLayoutAlign="center center">
-                                <div style="font-size: 12px; font-weight: 500; margin: 2px;">{{ item.dayWeek}}</div>
-                                <div style="font-size: 28px; margin: 2px;">{{ item.day }}</div>
-                                <div style="font-size: 16px; font-weight: 400; margin: 2px;">{{ item.month }}</div>
+                                <div style="font-size: 12px; font-weight: 500; margin: 2px;">{{ item.fechaFormato | date:'EEEE' }}</div>
+                                <div style="font-size: 28px; margin: 2px;">{{ item.fechaFormato | date:'d' }}</div>
+                                <div style="font-size: 16px; font-weight: 400; margin: 2px;">{{ item.fechaFormato | date:'MMMM' }}</div>
                             </div>
                         </div>
                         <div fxFlex="calc(75%)" fxFlex.lt-md="calc(75%)" fxFlex.lt-sm="75" fxLayoutAlign="start start">
                             <div fxLayout="column" fxLayoutAlign="center start">
-                                <p><b>Lugar: </b> {{ item.place }}</p>
-                                <p><b>Hora: </b> {{ item.schedule }}</p>
-                                <p><b>Salida: </b>{{ item.meetingtime }}</p>
-                                <p><b>Transporte: </b>{{ item.transportationStatus }}</p>
-                                <p><b>Fecha limite: </b>{{ item.modificationLimit }}</p>
+                                <p><b>Lugar: </b> {{ item.lugar }}</p>
+                                <p><b>Hora: </b> {{ item.horaInicio }} a {{ item.horaFin }}</p>
+                                <p><b>Reunion: </b>{{ item.puntoReunion }}</p>
+                                <p><b>Salida: </b>{{ item.horaSalida }}</p>
+                                <p><b>Transporte: </b>{{ item.costoTransporte === '0' || item.costoTransporte === 0 ? 'Gratuito' :  item.costoTransporte}}</p>
+                                <p><b>Estatus: </b>{{ item.estatusContrato }}</p>
+                                <!--<p><b>Fecha limite: </b>{{ item.modificationLimit }}</p>-->
                             </div>
                         </div>
                     </div>
                     <div fxLayout="row" fxLayout.lt-sm="row" fxLayoutAlign="center center">
                         <p>
-                            <button mat-raised-button color="primary" style="margin-right: 8px;">Asisto</button>
-                            <button mat-raised-button color="warn" style="margin-right: 8px;">No asisto</button>
+                            <!--<button mat-raised-button color="primary" style="margin-right: 8px;">Asisto</button>
+                            <button mat-raised-button color="warn" style="margin-right: 8px;">No asisto</button>-->
                             <button mat-raised-button (click)="showList(item)">Asistentes</button>
                         </p>
                     </div>

@@ -60,7 +60,7 @@ export class AppComponent {
     this.nameProfile = `${localStorage.getItem("nombrePerfil")}`;
     this.imgProfile = `${localStorage.getItem("imagenPerfil")}`;
     this.userData = `${localStorage.getItem("usuario")}`;
-    this.profile = parseInt(`${localStorage.getItem("profileId")}`);
+    this.profile = parseInt(`${localStorage.getItem("perfil")}`);
 
     this.cdr.detectChanges();
   }
@@ -72,7 +72,7 @@ export class AppComponent {
     localStorage.removeItem('firstName');
     localStorage.removeItem('lastName');
     localStorage.removeItem('profileId');
-    localStorage.removeItem('profile');
+    localStorage.removeItem('perfil');
     localStorage.removeItem('imgProfile');
     localStorage.removeItem('userName');
     localStorage.removeItem('password');

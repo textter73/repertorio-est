@@ -6,7 +6,7 @@
     <mat-card-content style="padding: 8px;">
         <div fxLayout="row" fxLayout.lt-sm="row" fxLayoutAlign="center center">
             <div fxFlex="calc(40%)" fxFlex.lt-md="calc(30%)" fxFlex.lt-sm="40" fxLayoutAlign="start center">
-                <img src="../../../../../assets/img/{{ personalInformation.imgProfile }}" width="100px" height="100px" class="img-profile">
+                <img src="../../../../../assets/img/{{ personalInformation.imgProfile }}" (error)="$any($event.target).src = '../../../../../assets/img/logo.jpg'" width="100px" height="100px" class="img-profile">
             </div>
 
             <div fxFlex="calc(60%)" fxFlex.lt-md="calc(70%)" fxFlex.lt-sm="60" fxLayoutAlign="start center">
