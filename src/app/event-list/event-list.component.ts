@@ -48,7 +48,7 @@ export class EventListComponent implements OnInit {
 
     showList(item: any): any {
         this.dialog.open(ShowListComponent, {
-            width: '100%',
+            width: '80%',
             height: 'auto',
             data: item
         });

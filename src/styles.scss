@@ -538,8 +538,9 @@ tr.mat-row {
 .mat-dialog-container {
   padding: 0 !important;
   width: 95vw !important;
-  max-width: 95vw !important;
+  height: auto !important;
   padding: 0 !important;
   margin: 0 auto !important;
   border-radius: 8px !important;
+  overflow: auto !important; 
 }
