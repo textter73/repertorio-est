@@ -12,7 +12,7 @@ export class LoginServices {
     ) {}
     
     // Método login: busca un usuario con usuario y contraseña (lectura única)
-    login(usuario: string, password: string): Observable<any> {
+    login(usuario: string, password: number): Observable<any> {
         return this.firestore.collection('usuarios', ref =>
             ref.where('usuario', '==', usuario).where('password', '==', password)
         ).get().pipe(

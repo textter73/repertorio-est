@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
     let usuario = this.itemForm.controls['usuario'].value;
     let password = this.itemForm.controls['password'].value;
 
-    this._loginServices.login(usuario, password).subscribe(data => {
+    this._loginServices.login(usuario, +password).subscribe(data => {
         if (data) {
             localStorage.setItem('id', data.id);
             localStorage.setItem('nivel', data.nivel);
