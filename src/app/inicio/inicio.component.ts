@@ -40,7 +40,7 @@ export class InicioComponent implements OnInit {
         localStorage.removeItem('firstName');
         localStorage.removeItem('lastName');
         localStorage.removeItem('profileId');
-        localStorage.removeItem('profile');
+        localStorage.removeItem('perfil');
         localStorage.removeItem('imgProfile');
         localStorage.removeItem('userName');
         localStorage.removeItem('password');

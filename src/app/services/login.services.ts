@@ -29,7 +29,22 @@ export class LoginServices {
         );
     }
 
-    getEvaluations(id: any,) {
-        return this.firestore.collection(`usuarios/`).doc(id).collection('evaluaciones/').valueChanges();
+    // Obtener todos los usuarios sin el campo 'password'
+    getUsuariosSinPassword(): Observable<any[]> {
+        return this.firestore.collection('usuarios').get().pipe(
+        map(snapshot => {
+            return snapshot.docs.map(doc => {
+            const data = doc.data() as any;
+            const id = doc.id;
+
+            // Elimina el campo 'password' antes de devolver
+            const { password, ...rest } = data;
+            return {
+                id,
+                ...rest
+            };
+            });
+        })
+        );
     }
 }

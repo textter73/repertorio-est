@@ -1,52 +1,67 @@
 <h3 mat-dialog-title style="text-align: center; background: #5ce1e6; padding: 8px;"><b>{{ data.tipo | uppercase }} - {{ data.lugar | uppercase}}</b></h3>
 <div>
     <mat-list>
-        <div mat-subheader style="color: green; width: 100%">Asistirán</div>
+        <div mat-subheader style="color: green; width: 100%" *ngIf="confirmanAsistencia && confirmanAsistencia.length">Asistirán</div>
         <mat-list-item *ngFor="let confirm of confirmanAsistencia; let i = index">
-            <div mat-line style="font-size: 12px;"><b>#{{ (i + 1) }}</b></div>
+            <div mat-line style="font-size: 10px;"><b>#{{ (i + 1) }}</b></div>
             <mat-icon mat-list-icon style="margin-bottom: 16px !important;">
                 <img src="../../../../../assets/img/{{ confirm.imagenPerfil }}" (error)="$any($event.target).src = '../../../../../assets/img/logo.jpg'" width="40px" height="40px" class="img-profile" style="margin-right: 12px;">
             </mat-icon>
-            <div mat-line style="font-size: 12px; margin-right: 12px;"><b> {{confirm.nombre}}</b></div>
+            <div mat-line style="font-size: 12px; margin-right: 12px;">{{confirm.nombre}}</div>
             <!--<div mat-line style="font-size: 12px;"> {{confirm.profile}} </div>
             <div mat-line style="font-size: 12px;">{{confirm.dateConfirm}}</div>-->
         </mat-list-item>
         <mat-divider></mat-divider>
         <div mat-subheader *ngIf="noAsistiran && noAsistiran.length">No asistirán</div>
         <mat-list-item *ngFor="let lack of noAsistiran; let i = index">
-            <div mat-line style="font-size: 12px;"><b>#{{ (i + 1) }}</b></div>
+            <div mat-line style="font-size: 10px;"><b>#{{ (i + 1) }}</b></div>
             <mat-icon mat-list-icon style="margin-bottom: 16px !important;">
                 <img src="../../../../../assets/img/{{ lack.imagenPerfil }}" (error)="$any($event.target).src = '../../../../../assets/img/logo.jpg'" width="40px" height="40px" class="img-profile" style="margin-right: 12px;">
             </mat-icon>
-            <div mat-line style="font-size: 12px; margin-right: 12px;"><b> {{lack.nombre}}</b></div>
+            <div mat-line style="font-size: 12px; margin-right: 12px;">{{lack.nombre}}</div>
             <!--<div mat-line style="font-size: 12px;"> {{lack.profile}} </div>
             <div mat-line style="font-size: 12px;">{{lack.dateConfirm}}</div>-->
         </mat-list-item>
         <mat-divider></mat-divider>
         <div mat-subheader *ngIf="talVezAsistan && talVezAsistan.length">Tal vez asistan</div>
         <mat-list-item *ngFor="let talVez of talVezAsistan; let i = index">
-            <div mat-line style="font-size: 12px;"><b>#{{ (i + 1) }}</b></div>
+            <div mat-line style="font-size: 10px;"><b>#{{ (i + 1) }}</b></div>
             <mat-icon mat-list-icon style="margin-bottom: 16px !important; margin-right: 12px;">
                 <img src="../../../../../assets/img/{{ talVez.imagenPerfil }}" (error)="$any($event.target).src = '../../../../../assets/img/logo.jpg'" width="40px" height="40px" class="img-profile" style="margin-right: 12px;">
             </mat-icon>
-            <div mat-line style="font-size: 12px;"><b> {{talVez.nombre}}</b></div>
+            <div mat-line style="font-size: 12px;">{{talVez.nombre}}</div>
             <!--<div mat-line style="font-size: 12px;"> {{pending.profile}} </div>
             <div mat-line style="font-size: 12px;">{{pending.dateConfirm}}</div>-->
         </mat-list-item>
         <mat-divider></mat-divider>
-        <div mat-subheader *ngIf="talVezAsistan && pendienteConfirmar.length">Tal vez asistan</div>
+        <div mat-subheader *ngIf="talVezAsistan && pendienteConfirmar.length">Sin información</div>
         <mat-list-item *ngFor="let pendiente of pendienteConfirmar; let i = index">
-            <div mat-line style="font-size: 12px;"><b>#{{ (i + 1) }}</b></div>
+            <div mat-line style="font-size: 10px;"><b>#{{ (i + 1) }}</b></div>
             <mat-icon mat-list-icon style="margin-bottom: 16px !important; margin-right: 12px;">
                 <img src="../../../../../assets/img/{{ pendiente.imagenPerfil }}" (error)="$any($event.target).src = '../../../../../assets/img/logo.jpg'" width="40px" height="40px" class="img-profile" style="margin-right: 12px;">
             </mat-icon>
-            <div mat-line style="font-size: 12px;"><b> {{pendiente.nombre}}</b></div>
+            <div mat-line style="font-size: 12px;">{{pendiente.nombre}}</div>
             <!--<div mat-line style="font-size: 12px;"> {{pending.profile}} </div>
             <div mat-line style="font-size: 12px;">{{pending.dateConfirm}}</div>-->
         </mat-list-item>
         <mat-divider></mat-divider>
     </mat-list>
 </div>
-<!--<div mat-dialog-actions style="margin: 6px;">
-    <button mat-raised-button color="primary" [mat-dialog-close]="data.type" cdkFocusInitial>Cerrar</button>
-</div>-->
+<div mat-dialog-actions style="
+    margin: 6px; 
+    position: sticky !important;
+    bottom: 0 !important;
+    background: white !important;
+    margin: 0 !important;
+    z-index: 10;
+    box-shadow: 0px -2px 5px rgba(0,0,0,0.1);
+    text-align: center !important;
+    align-items: center !important;
+    align-content: center !important;
+    width: 100%;"
+    *ngIf="!contestoEvento">
+    <!--<button mat-raised-button color="primary" [mat-dialog-close]="data.type" cdkFocusInitial>Cerrar</button>-->
+    <button mat-raised-button color="primary" style="margin-left: 22px; margin-right: 8px;" (click)="confirmarAsistencia(1)">Asisto</button>
+    <button mat-raised-button color="warn" style="margin-right: 4px;" (click)="confirmarAsistencia(2)">No asisto</button>
+    <button mat-raised-button color="defaul" style="margin-right: 4px;" (click)="confirmarAsistencia(3)">Tal vez</button>
+</div>

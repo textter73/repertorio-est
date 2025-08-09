@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from "rxjs";
 import { map } from 'rxjs/operators';
+import { FieldValue, serverTimestamp } from 'firebase/firestore';
+
+
 
 @Injectable({
     providedIn: 'root'
@@ -32,7 +35,9 @@ export class EventosServices {
     // Obtener un asistente específico
     obtenerAsistentes(eventoId: string): Observable<any[]> {
         const path = `eventos/${eventoId}/asistentes`;
-        return this.firestore.collection(path).get().pipe(
+        return this.firestore.collection(path, ref =>
+            ref.orderBy('__name__') // Ordena por ID del documento
+        ).get().pipe(
             map(snapshot => {
                 if (snapshot.empty) {
                     return []; // Retorna array vacío si no hay asistentes
@@ -43,5 +48,14 @@ export class EventosServices {
                 }));
             })
         );
+    }
+
+    agregarAsistente(eventoId: string, datos: any) {
+        const path = `eventos/${eventoId}/asistentes`;
+
+        return this.firestore.collection(path).add({
+            ...datos,
+            fechaCreacion: serverTimestamp()
+        });
     }
 }
